@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1000" viewBox="0 0 1200 1000"><rect width="100%" height="100%" fill="#fafafa"/><rect x="0" y="0" width="200" height="1000" rx="0" fill="#e5e5e5" stroke="#888" stroke-width="1.5"/>
+<rect x="16" y="16" width="32" height="32" rx="4" fill="#eee" stroke="#555" stroke-width="1.5"/>
+<line x1="16" y1="16" x2="48" y2="48" stroke="#999" stroke-width="1.5"/>
+<line x1="48" y1="16" x2="16" y2="48" stroke="#999" stroke-width="1.5"/>
+<text x="58" y="30" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="start" fill="#333">Все счётчики</text>
+<text x="58" y="45" font-family="Arial, sans-serif" font-size="11" font-weight="normal" text-anchor="start" fill="#666">Админ-панель</text>
+<rect x="12" y="80" width="176" height="34" rx="4" fill="#bbb" stroke="#888" stroke-width="1.5"/>
+<rect x="22" y="90" width="14" height="14" rx="4" fill="#fff" stroke="#555" stroke-width="1.5"/>
+<text x="46" y="102" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#333">Дашборд</text>
+<rect x="12" y="124" width="176" height="34" rx="4" fill="#f2f2f2" stroke="#888" stroke-width="1.5"/>
+<rect x="22" y="134" width="14" height="14" rx="4" fill="#fff" stroke="#555" stroke-width="1.5"/>
+<text x="46" y="146" font-family="Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#333">Показания</text>
+<rect x="12" y="168" width="176" height="34" rx="4" fill="#f2f2f2" stroke="#888" stroke-width="1.5"/>
+<rect x="22" y="178" width="14" height="14" rx="4" fill="#fff" stroke="#555" stroke-width="1.5"/>
+<text x="46" y="190" font-family="Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#333">Счётчики</text>
+<rect x="12" y="212" width="176" height="34" rx="4" fill="#f2f2f2" stroke="#888" stroke-width="1.5"/>
+<rect x="22" y="222" width="14" height="14" rx="4" fill="#fff" stroke="#555" stroke-width="1.5"/>
+<text x="46" y="234" font-family="Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#333">Абоненты</text>
+<rect x="12" y="256" width="176" height="34" rx="4" fill="#f2f2f2" stroke="#888" stroke-width="1.5"/>
+<rect x="22" y="266" width="14" height="14" rx="4" fill="#fff" stroke="#555" stroke-width="1.5"/>
+<text x="46" y="278" font-family="Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#333">Тарифы</text>
+<rect x="12" y="300" width="176" height="34" rx="4" fill="#f2f2f2" stroke="#888" stroke-width="1.5"/>
+<rect x="22" y="310" width="14" height="14" rx="4" fill="#fff" stroke="#555" stroke-width="1.5"/>
+<text x="46" y="322" font-family="Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#333">Квитанции</text>
+<text x="20" y="930" font-family="Arial, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#555">↗ Публичный сайт</text>
+<rect x="12" y="948" width="176" height="34" rx="6" fill="#444" stroke="#555" stroke-width="1.5"/>
+<text x="100.0" y="970.0" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#fff">Выйти</text>
+<rect x="200" y="0" width="1000" height="56" rx="0" fill="#fff" stroke="#888" stroke-width="1.5"/>
+<text x="224" y="34" font-family="Arial, sans-serif" font-size="14" font-weight="normal" text-anchor="start" fill="#333">Админ-панель / Дашборд</text>
+<circle cx="1060" cy="28" r="16" fill="#ddd" stroke="#555"/>
+<text x="1084" y="26" font-family="Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#333">Администратор</text>
+<text x="1084" y="41" font-family="Arial, sans-serif" font-size="11" font-weight="normal" text-anchor="start" fill="#777">роль</text>
+<text x="224" y="100" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="start" fill="#333">Дашборд</text>
+<rect x="224" y="112" width="280.0" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="1030" y="80" width="146" height="34" rx="6" fill="#444" stroke="#555" stroke-width="1.5"/>
+<text x="1103.0" y="102.0" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#fff">Проверить показания</text>
+<rect x="244.0" y="150" width="173.6" height="80" rx="4" fill="#fff" stroke="#555" stroke-width="1.5"/>
+<rect x="258.0" y="172" width="36" height="36" rx="4" fill="#eee" stroke="#555" stroke-width="1.5"/>
+<line x1="258.0" y1="172" x2="294.0" y2="208" stroke="#999" stroke-width="1.5"/>
+<line x1="294.0" y1="172" x2="258.0" y2="208" stroke="#999" stroke-width="1.5"/>
+<text x="304.0" y="182" font-family="Arial, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#555">Абоненты</text>
+<text x="304.0" y="210" font-family="Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="start" fill="#333">0 000</text>
+<rect x="433.6" y="150" width="173.6" height="80" rx="4" fill="#fff" stroke="#555" stroke-width="1.5"/>
+<rect x="447.6" y="172" width="36" height="36" rx="4" fill="#eee" stroke="#555" stroke-width="1.5"/>
+<line x1="447.6" y1="172" x2="483.6" y2="208" stroke="#999" stroke-width="1.5"/>
+<line x1="483.6" y1="172" x2="447.6" y2="208" stroke="#999" stroke-width="1.5"/>
+<text x="493.6" y="182" font-family="Arial, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#555">Счётчики</text>
+<text x="493.6" y="210" font-family="Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="start" fill="#333">0 000</text>
+<rect x="623.2" y="150" width="173.6" height="80" rx="4" fill="#fff" stroke="#555" stroke-width="1.5"/>
+<rect x="637.2" y="172" width="36" height="36" rx="4" fill="#eee" stroke="#555" stroke-width="1.5"/>
+<line x1="637.2" y1="172" x2="673.2" y2="208" stroke="#999" stroke-width="1.5"/>
+<line x1="673.2" y1="172" x2="637.2" y2="208" stroke="#999" stroke-width="1.5"/>
+<text x="683.2" y="182" font-family="Arial, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#555">Показаний за мес.</text>
+<text x="683.2" y="210" font-family="Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="start" fill="#333">0 000</text>
+<rect x="812.8" y="150" width="173.6" height="80" rx="4" fill="#fff" stroke="#555" stroke-width="1.5"/>
+<rect x="826.8" y="172" width="36" height="36" rx="4" fill="#eee" stroke="#555" stroke-width="1.5"/>
+<line x1="826.8" y1="172" x2="862.8" y2="208" stroke="#999" stroke-width="1.5"/>
+<line x1="862.8" y1="172" x2="826.8" y2="208" stroke="#999" stroke-width="1.5"/>
+<text x="872.8" y="182" font-family="Arial, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#555">Ожидают проверки</text>
+<text x="872.8" y="210" font-family="Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="start" fill="#333">0 000</text>
+<rect x="1002.4" y="150" width="173.6" height="80" rx="4" fill="#fff" stroke="#555" stroke-width="1.5"/>
+<rect x="1016.4" y="172" width="36" height="36" rx="4" fill="#eee" stroke="#555" stroke-width="1.5"/>
+<line x1="1016.4" y1="172" x2="1052.4" y2="208" stroke="#999" stroke-width="1.5"/>
+<line x1="1052.4" y1="172" x2="1016.4" y2="208" stroke="#999" stroke-width="1.5"/>
+<text x="1062.4" y="182" font-family="Arial, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#555">Задолженность</text>
+<text x="1062.4" y="210" font-family="Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="start" fill="#333">0 000</text>
+<rect x="244" y="250" width="600" height="280" rx="4" fill="#fff" stroke="#555" stroke-width="1.5"/>
+<text x="260" y="278" font-family="Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="start" fill="#333">График активности передачи показаний</text>
+<polyline points="290,500 335,480 380,470 425,430 470,400 515,350 560,330 605,300 650,320 695,380 740,430 785,470 820,490" fill="none" stroke="#555" stroke-width="2.5"/>
+<line x1="290" y1="505" x2="820" y2="505" stroke="#999" stroke-width="1.5"/>
+<line x1="290" y1="290" x2="290" y2="505" stroke="#999" stroke-width="1.5"/>
+<rect x="860" y="250" width="316" height="280" rx="4" fill="#fff" stroke="#555" stroke-width="1.5"/>
+<text x="876" y="278" font-family="Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="start" fill="#333">Потребление за месяц</text>
+<rect x="876" y="300" width="110" height="24" rx="12" fill="#eee" stroke="#555" stroke-width="1.5"/>
+<text x="931" y="317" font-family="Arial, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#333">Электричество</text>
+<text x="1160" y="318" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="end" fill="#333">000 ед.</text>
+<line x1="876" y1="344" x2="1160" y2="344" stroke="#ddd" stroke-width="1"/>
+<rect x="876" y="370" width="110" height="24" rx="12" fill="#eee" stroke="#555" stroke-width="1.5"/>
+<text x="931" y="387" font-family="Arial, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#333">Вода</text>
+<text x="1160" y="388" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="end" fill="#333">000 ед.</text>
+<line x1="876" y1="414" x2="1160" y2="414" stroke="#ddd" stroke-width="1"/>
+<rect x="876" y="440" width="110" height="24" rx="12" fill="#eee" stroke="#555" stroke-width="1.5"/>
+<text x="931" y="457" font-family="Arial, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#333">Газ</text>
+<text x="1160" y="458" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="end" fill="#333">000 ед.</text>
+<line x1="876" y1="484" x2="1160" y2="484" stroke="#ddd" stroke-width="1"/>
+<rect x="244" y="550" width="932" height="250" rx="4" fill="#fff" stroke="#555" stroke-width="1.5"/>
+<text x="260" y="578" font-family="Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="start" fill="#333">Последние показания</text>
+<text x="1160" y="578" font-family="Arial, sans-serif" font-size="12" font-weight="normal" text-anchor="end" fill="#555">Все показания →</text>
+<rect x="260" y="594" width="900" height="180" rx="4" fill="#fff" stroke="#555" stroke-width="1.5"/>
+<rect x="260" y="594" width="900" height="36" rx="0" fill="#eee" stroke="#555" stroke-width="1.5"/>
+<text x="270.0" y="617" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="start" fill="#555">Дата</text>
+<text x="398.57142857142856" y="617" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="start" fill="#555">Абонент</text>
+<text x="527.1428571428571" y="617" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="start" fill="#555">Ресурс</text>
+<text x="655.7142857142858" y="617" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="start" fill="#555">№ счётчика</text>
+<text x="784.2857142857143" y="617" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="start" fill="#555">Расход</text>
+<text x="912.8571428571429" y="617" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="start" fill="#555">Сумма</text>
+<text x="1041.4285714285716" y="617" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="start" fill="#555">Статус</text>
+<line x1="260" y1="630" x2="1160" y2="630" stroke="#ccc" stroke-width="1"/>
+<rect x="270.0" y="644" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="398.57142857142856" y="644" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="527.1428571428571" y="644" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="655.7142857142858" y="644" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="784.2857142857143" y="644" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="912.8571428571429" y="644" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="1041.4285714285716" y="644" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<line x1="260" y1="666" x2="1160" y2="666" stroke="#ccc" stroke-width="1"/>
+<rect x="270.0" y="680" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="398.57142857142856" y="680" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="527.1428571428571" y="680" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="655.7142857142858" y="680" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="784.2857142857143" y="680" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="912.8571428571429" y="680" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="1041.4285714285716" y="680" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<line x1="260" y1="702" x2="1160" y2="702" stroke="#ccc" stroke-width="1"/>
+<rect x="270.0" y="716" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="398.57142857142856" y="716" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="527.1428571428571" y="716" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="655.7142857142858" y="716" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="784.2857142857143" y="716" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="912.8571428571429" y="716" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="1041.4285714285716" y="716" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<line x1="260" y1="738" x2="1160" y2="738" stroke="#ccc" stroke-width="1"/>
+<rect x="270.0" y="752" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="398.57142857142856" y="752" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="527.1428571428571" y="752" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="655.7142857142858" y="752" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="784.2857142857143" y="752" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="912.8571428571429" y="752" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="1041.4285714285716" y="752" width="77.14285714285715" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="244" y="820" width="458" height="160" rx="4" fill="#fff" stroke="#555" stroke-width="1.5"/>
+<text x="260" y="848" font-family="Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="start" fill="#333">Истекает срок поверки</text>
+<rect x="260" y="856" width="426" height="108" rx="4" fill="#fff" stroke="#555" stroke-width="1.5"/>
+<rect x="260" y="856" width="426" height="36" rx="0" fill="#eee" stroke="#555" stroke-width="1.5"/>
+<text x="270.0" y="879" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="start" fill="#555">№</text>
+<text x="376.5" y="879" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="start" fill="#555">Ресурс</text>
+<text x="483.0" y="879" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="start" fill="#555">Абонент</text>
+<text x="589.5" y="879" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="start" fill="#555">Поверка до</text>
+<line x1="260" y1="892" x2="686" y2="892" stroke="#ccc" stroke-width="1"/>
+<rect x="270.0" y="906" width="63.9" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="376.5" y="906" width="63.9" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="483.0" y="906" width="63.9" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="589.5" y="906" width="63.9" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<line x1="260" y1="928" x2="686" y2="928" stroke="#ccc" stroke-width="1"/>
+<rect x="270.0" y="942" width="63.9" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="376.5" y="942" width="63.9" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="483.0" y="942" width="63.9" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="589.5" y="942" width="63.9" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="718" y="820" width="458" height="160" rx="4" fill="#fff" stroke="#555" stroke-width="1.5"/>
+<text x="734" y="848" font-family="Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="start" fill="#333">Неоплаченные квитанции</text>
+<rect x="734" y="856" width="426" height="108" rx="4" fill="#fff" stroke="#555" stroke-width="1.5"/>
+<rect x="734" y="856" width="426" height="36" rx="0" fill="#eee" stroke="#555" stroke-width="1.5"/>
+<text x="744.0" y="879" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="start" fill="#555">Абонент</text>
+<text x="850.5" y="879" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="start" fill="#555">Период</text>
+<text x="957.0" y="879" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="start" fill="#555">Сумма</text>
+<text x="1063.5" y="879" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="start" fill="#555">Статус</text>
+<line x1="734" y1="892" x2="1160" y2="892" stroke="#ccc" stroke-width="1"/>
+<rect x="744.0" y="906" width="63.9" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="850.5" y="906" width="63.9" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="957.0" y="906" width="63.9" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="1063.5" y="906" width="63.9" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<line x1="734" y1="928" x2="1160" y2="928" stroke="#ccc" stroke-width="1"/>
+<rect x="744.0" y="942" width="63.9" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="850.5" y="942" width="63.9" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="957.0" y="942" width="63.9" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<rect x="1063.5" y="942" width="63.9" height="8" rx="2" fill="#ddd" stroke="none" stroke-width="1.5"/>
+<circle cx="244" cy="150" r="12" fill="#e11d48"/>
+<text x="244" y="155" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#fff">1</text>
+<circle cx="244" cy="250" r="12" fill="#e11d48"/>
+<text x="244" y="255" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#fff">2</text>
+<circle cx="860" cy="250" r="12" fill="#e11d48"/>
+<text x="860" y="255" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#fff">3</text>
+<circle cx="244" cy="550" r="12" fill="#e11d48"/>
+<text x="244" y="555" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#fff">4</text>
+<circle cx="244" cy="820" r="12" fill="#e11d48"/>
+<text x="244" y="825" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#fff">5</text>
+<circle cx="718" cy="820" r="12" fill="#e11d48"/>
+<text x="718" y="825" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#fff">6</text>
+<circle cx="1030" cy="80" r="12" fill="#e11d48"/>
+<text x="1030" y="85" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#fff">7</text></svg>
