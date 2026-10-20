@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Передача текущих показаний счетчиков воды, газа, электричества"
+    />
+    <meta property="og:title" content="Передать показания | Архив показаний" />
+    <meta
+      property="og:description"
+      content="Форма для внесения показаний приборов учета"
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <title>Передать показания | Архив показаний счетчиков</title>
+  </head>
+  <body>
+    <div class="layout">
+      <!-- Шапка сайта -->
+      <header class="header">
+        <div class="container header__container">
+          <a href="/" class="logo" title="На главную страницу">
+            <img
+              src="assets/img/logo.png"
+              alt="Логотип Все счётчики"
+              width="40"
+              height="40"
+            />
+            <span class="logo__text">Все счётчики</span>
+          </a>
+
+          <!-- Основная навигация (Требование 7: nav) -->
+          <nav class="main-nav" aria-label="Основное меню">
+            <button
+              class="mobile-menu-toggle"
+              aria-label="Открыть меню"
+              aria-expanded="false"
+            >
+              <span class="hamburger"></span>
+            </button>
+            <ul class="main-nav__list">
+              <li>
+                <a href="/" class="main-nav__link" title="Главная страница"
+                  >Главная</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/archive.html"
+                  class="main-nav__link"
+                  title="Архив показаний"
+                  >Архив</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/input.html"
+                  class="main-nav__link active"
+                  title="Квитанции"
+                  >Передать показания</a
+                >
+              </li>
+            </ul>
+          </nav>
+
+          <!-- Профиль -->
+          <a href="/login.html" class="user-profile">
+            <button
+              class="user-profile__btn"
+              aria-label="Профиль пользователя"
+              title="Настройки профиля"
+            >
+              <img
+                src="assets/img/icon-user.png"
+                alt="Аватар пользователя"
+                width="40"
+                height="40"
+              />
+              <span class="user-profile__name">Иван</span>
+            </button>
+          </a>
+        </div>
+      </header>
+
+      <!-- Хлебные крошки -->
+      <nav class="breadcrumbs" aria-label="Хлебные крошки">
+        <div class="container">
+          <ol class="breadcrumbs__list">
+            <li class="breadcrumbs__item">
+              <a href="/" class="breadcrumbs__link" title="Главная">Главная</a>
+            </li>
+            <li class="breadcrumbs__item active" aria-current="page">
+              <span>Передать показания</span>
+            </li>
+          </ol>
+        </div>
+      </nav>
+
+      <main class="main">
+        <div class="container">
+          <h1 class="page-title">Форма передачи показаний</h1>
+
+          <!-- Основная форма (видима по умолчанию) -->
+          <div id="formContainer" class="form-card">
+            <form id="meterReadingForm">
+              <!-- Выбор счетчика -->
+              <div class="form-group">
+                <label for="meterSelect">№ счетчика</label>
+                <select id="meterSelect" class="form-control" required>
+                  <option value="">Выберите счетчик</option>
+                  <option
+                    value="1"
+                    data-type="Вода"
+                    data-tariff="150"
+                    data-address="г. Омск, ул. Ленина, д. 10, кв. 42"
+                    data-last-check="12.10.2025"
+                  >
+                    568851 (Вода)
+                  </option>
+                  <option
+                    value="2"
+                    data-type="Электроэнергия"
+                    data-tariff="5.2"
+                    data-address="г. Омск, ул. Ленина, д. 10, кв. 42"
+                    data-last-check="10.01.2026"
+                  >
+                    789123 (Электричество)
+                  </option>
+                </select>
+              </div>
+
+              <!-- Информация о выбранном счетчике -->
+              <div class="meter-info">
+                <div class="info-row">
+                  <span>Тип:</span> <strong id="meterType">—</strong>
+                </div>
+                <div class="info-row">
+                  <span>Тариф:</span>
+                  <strong id="meterTariff">—</strong> руб./ед.
+                </div>
+                <div class="info-row">
+                  <span>Адрес:</span> <span id="meterAddress">—</span>
+                </div>
+                <div class="info-row">
+                  <span>Дата последней поверки:</span>
+                  <span id="meterLastCheck">—</span>
+                </div>
+              </div>
+
+              <!-- Предыдущие показания (только чтение) -->
+              <div class="form-group">
+                <label for="prevReading">Предыдущие показания</label>
+                <input
+                  type="text"
+                  id="prevReading"
+                  class="form-control"
+                  readonly
+                  value="56842"
+                />
+              </div>
+
+              <!-- Текущие показания с валидацией -->
+              <div class="form-group">
+                <label for="currentReading"
+                  >Текущие показания <span class="required">*</span></label
+                >
+                <input
+                  type="number"
+                  id="currentReading"
+                  class="form-control"
+                  step="0.001"
+                  required
+                />
+                <div class="error-feedback" id="currentError">
+                  Показания должны быть больше предыдущих
+                </div>
+              </div>
+
+              <!-- Дата снятия -->
+              <div class="form-group">
+                <label for="readingDate">Дата снятия</label>
+                <input
+                  type="date"
+                  id="readingDate"
+                  class="form-control"
+                  required
+                />
+              </div>
+
+              <!-- Ответственный -->
+              <div class="form-group">
+                <label for="responsible">Ответственный за снятие</label>
+                <input
+                  type="text"
+                  id="responsible"
+                  class="form-control"
+                  value="Иванов И.И."
+                />
+              </div>
+
+              <!-- Блок итогов -->
+              <div class="total-block">
+                <div class="total-block__title">Итого к начислению</div>
+                <div class="total-block__row">
+                  <span>Расход:</span>
+                  <strong id="consumptionValue">0</strong>
+                  <span id="unitLabel">м³</span>
+                </div>
+                <div class="total-block__row total-block__row--sum">
+                  <span>Сумма:</span>
+                  <strong id="totalAmount">0</strong> руб.
+                </div>
+              </div>
+
+              <!-- Кнопки действий -->
+              <div class="form-actions">
+                <button type="submit" class="btn btn--primary" id="submitBtn">
+                  Сохранить
+                </button>
+                <button type="button" class="btn btn--secondary" id="cancelBtn">
+                  Отменить
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Блок успешной отправки (скрыт по умолчанию) -->
+          <div
+            id="successContainer"
+            class="form-card success-card"
+            style="display: none"
+          >
+            <div class="success-icon">✅</div>
+            <h2 class="success-title">Показания успешно переданы!</h2>
+            <p class="success-text">
+              Данные сохранены и отправлены в управляющую компанию.
+            </p>
+
+            <!-- Итоговый блок в сообщении -->
+            <div class="total-block total-block--success">
+              <div class="total-block__row">
+                <span>Расход:</span>
+                <strong id="successConsumption">0</strong>
+                <span id="successUnit">м³</span>
+              </div>
+              <div class="total-block__row total-block__row--sum">
+                <span>Сумма к оплате:</span>
+                <strong id="successAmount">0</strong> руб.
+              </div>
+            </div>
+
+            <div class="success-actions">
+              <a
+                href="/archive.html"
+                class="btn btn--primary"
+                title="Перейти в архив"
+                >В архив</a
+              >
+              <button
+                class="btn btn--outline"
+                id="anotherReadingBtn"
+                title="Передать еще одни показания"
+              >
+                Передать еще
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Подвал -->
+      <footer class="footer">
+        <div class="container">
+          <p>&copy; 2026 Архив показаний счетчиков</p>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      (function () {
+        "use strict";
+
+        // DOM элементы
+        const meterSelect = document.getElementById("meterSelect");
+        const meterType = document.getElementById("meterType");
+        const meterTariff = document.getElementById("meterTariff");
+        const meterAddress = document.getElementById("meterAddress");
+        const meterLastCheck = document.getElementById("meterLastCheck");
+        const prevReading = document.getElementById("prevReading");
+        const currentReading = document.getElementById("currentReading");
+        const readingDate = document.getElementById("readingDate");
+        const consumptionSpan = document.getElementById("consumptionValue");
+        const totalAmountSpan = document.getElementById("totalAmount");
+        const unitLabel = document.getElementById("unitLabel");
+        const currentError = document.getElementById("currentError");
+
+        const formContainer = document.getElementById("formContainer");
+        const successContainer = document.getElementById("successContainer");
+        const form = document.getElementById("meterReadingForm");
+
+        const successConsumption =
+          document.getElementById("successConsumption");
+        const successAmount = document.getElementById("successAmount");
+        const successUnit = document.getElementById("successUnit");
+
+        let currentTariff = 0;
+        let currentUnit = "м³";
+
+        // Функция обновления информации о счетчике
+        function updateMeterInfo() {
+          const selected = meterSelect.options[meterSelect.selectedIndex];
+          if (selected.value) {
+            meterType.textContent = selected.dataset.type || "—";
+            currentTariff = parseFloat(selected.dataset.tariff) || 0;
+            meterTariff.textContent = currentTariff;
+            meterAddress.textContent = selected.dataset.address || "—";
+            meterLastCheck.textContent = selected.dataset.lastCheck || "—";
+
+            // Установка единицы измерения в зависимости от типа
+            if (
+              selected.dataset.type === "Вода" ||
+              selected.dataset.type === "Газ"
+            ) {
+              currentUnit = "м³";
+            } else if (selected.dataset.type === "Электроэнергия") {
+              currentUnit = "кВт·ч";
+            }
+            unitLabel.textContent = currentUnit;
+            successUnit.textContent = currentUnit;
+
+            // Здесь должен быть запрос к серверу за предыдущими показаниями
+            // Пока ставим фиксированное значение для демонстрации
+            prevReading.value = "56842";
+            calculateTotal();
+          } else {
+            meterType.textContent = "—";
+            meterTariff.textContent = "—";
+            meterAddress.textContent = "—";
+            meterLastCheck.textContent = "—";
+            prevReading.value = "";
+            consumptionSpan.textContent = "0";
+            totalAmountSpan.textContent = "0";
+          }
+        }
+
+        // Расчет расхода и суммы
+        function calculateTotal() {
+          const prev = parseFloat(prevReading.value) || 0;
+          const curr = parseFloat(currentReading.value) || 0;
+
+          if (curr > prev) {
+            const consumption = curr - prev;
+            consumptionSpan.textContent = consumption.toFixed(3);
+            const amount = consumption * currentTariff;
+            totalAmountSpan.textContent = amount.toFixed(2);
+            currentReading.setCustomValidity("");
+            currentError.style.display = "none";
+          } else {
+            consumptionSpan.textContent = "0";
+            totalAmountSpan.textContent = "0";
+            if (currentReading.value) {
+              currentReading.setCustomValidity(
+                "Показания должны быть больше предыдущих"
+              );
+              currentError.style.display = "block";
+            } else {
+              currentReading.setCustomValidity("");
+              currentError.style.display = "none";
+            }
+          }
+        }
+
+        // Установка сегодняшней даты по умолчанию
+        function setDefaultDate() {
+          const today = new Date();
+          const yyyy = today.getFullYear();
+          const mm = String(today.getMonth() + 1).padStart(2, "0");
+          const dd = String(today.getDate()).padStart(2, "0");
+          readingDate.value = `${yyyy}-${mm}-${dd}`;
+        }
+
+        // Обработчик отправки формы
+        function handleSubmit(e) {
+          e.preventDefault();
+
+          // Проверка валидности
+          if (!meterSelect.value) {
+            alert("Выберите счетчик");
+            return;
+          }
+
+          const curr = parseFloat(currentReading.value);
+          const prev = parseFloat(prevReading.value);
+          if (isNaN(curr) || curr <= prev) {
+            currentReading.focus();
+            currentError.style.display = "block";
+            return;
+          }
+
+          if (!readingDate.value) {
+            alert("Укажите дату снятия");
+            return;
+          }
+
+          // Скрываем форму, показываем успех
+          formContainer.style.display = "none";
+          successContainer.style.display = "block";
+
+          // Заполняем данные в блоке успеха
+          const consumption = (curr - prev).toFixed(3);
+          const amount = (consumption * currentTariff).toFixed(2);
+          successConsumption.textContent = consumption;
+          successAmount.textContent = amount;
+
+          // Здесь можно отправить данные на сервер через AJAX
+          console.log("Отправка данных:", {
+            meterId: meterSelect.value,
+            current: curr,
+            date: readingDate.value,
+            responsible: document.getElementById("responsible").value,
+          });
+        }
+
+        // Сброс формы для повторной передачи
+        function resetForm() {
+          form.reset();
+          meterSelect.value = "";
+          updateMeterInfo();
+          setDefaultDate();
+          document.getElementById("responsible").value = "Иванов И.И.";
+          formContainer.style.display = "block";
+          successContainer.style.display = "none";
+        }
+
+        // Инициализация
+        function init() {
+          setDefaultDate();
+
+          // Обработчики событий
+          meterSelect.addEventListener("change", updateMeterInfo);
+          currentReading.addEventListener("input", calculateTotal);
+          form.addEventListener("submit", handleSubmit);
+
+          document
+            .getElementById("cancelBtn")
+            .addEventListener("click", function () {
+              window.location.href = "/";
+            });
+
+          document
+            .getElementById("anotherReadingBtn")
+            .addEventListener("click", resetForm);
+        }
+
+        init();
+      })();
+    </script>
+  </body>
+</html>

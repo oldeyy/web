@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Вход в личный кабинет архива показаний счетчиков">
+    <meta property="og:title" content="Вход в систему | Архив показаний">
+    <meta property="og:description" content="Авторизация для доступа к показаниям счетчиков">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Вход в систему | Архив показаний счетчиков</title>
+    <style>
+        /* Стили для страницы входа */
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+        }
+        .login-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 2.5rem 2rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--gray-200);
+        }
+        .login-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: var(--gray-900);
+        }
+        .login-form .form-group {
+            margin-bottom: 1.25rem;
+        }
+        .login-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+        .login-form .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .login-form .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: 1.25rem;
+            height: 1.25rem;
+            accent-color: var(--primary);
+        }
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: 400;
+            cursor: pointer;
+        }
+        .btn-login {
+            width: 100%;
+            padding: 0.875rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        .login-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+        }
+        .login-links a {
+            text-decoration: none;
+            color: var(--primary);
+        }
+        .login-links a:hover {
+            text-decoration: underline;
+        }
+        .login-footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--gray-500);
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body class="login-page">
+    <main class="login-main">
+        <div class="login-card">
+            <h1 class="login-title">Вход в систему</h1>
+            
+            <form class="login-form" action="#" method="post">
+                <div class="form-group">
+                    <label for="phone">Номер телефона</label>
+                    <input type="tel" id="phone" name="phone" class="form-control" 
+                           placeholder="+7 (___) ___-__-__" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+                    <input type="password" id="password" name="password" class="form-control" 
+                           placeholder="••••••••" required>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Запомнить пароль</label>
+                </div>
+                
+                <button type="submit" class="btn btn--primary btn-login">Войти</button>
+            </form>
+            
+            <div class="login-links">
+                <a href="#" title="Восстановление пароля">Забыли пароль?</a>
+                <a href="#" title="Создать аккаунт">Регистрация</a>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="login-footer">
+        <p>&copy; 2026 Архив показаний счетчиков</p>
+    </footer>
+    
+    <script>
+        // Простая маска для телефона (опционально)
+        const phoneInput = document.getElementById('phone');
+        if (phoneInput) {
+            phoneInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 11) value = value.slice(0, 11);
+                let formatted = '+7 ';
+                if (value.length > 1) {
+                    formatted += '(' + value.slice(1, 4);
+                }
+                if (value.length >= 4) {
+                    formatted += ') ' + value.slice(4, 7);
+                }
+                if (value.length >= 7) {
+                    formatted += '-' + value.slice(7, 9);
+                }
+                if (value.length >= 9) {
+                    formatted += '-' + value.slice(9, 11);
+                }
+                e.target.value = formatted;
+            });
+        }
+    </script>
+</body>
+</html>

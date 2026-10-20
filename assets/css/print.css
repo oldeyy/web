@@ -1,0 +1,34 @@
+@media print {
+    .header, .main-nav, .breadcrumbs, .filters-panel, .page-actions,
+    .pagination, .footer, .btn, .mobile-menu-toggle, .user-profile,
+    .no-print {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+        font-size: 12pt;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 0;
+    }
+    
+    .data-table {
+        border: 1px solid #000;
+    }
+    
+    .data-table th {
+        background: #eee !important;
+        color: black;
+    }
+    
+    .receipt {
+        box-shadow: none;
+    }
+    
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+}

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Архив показаний счетчиков воды, газа и электричества. Фильтрация, экспорт, печать квитанций."
+    />
+    <meta property="og:title" content="Архив показаний | ЭнергоУчет" />
+    <meta
+      property="og:description"
+      content="Полная история показаний с возможностью фильтрации и экспорта"
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/print.css" media="print" />
+    <title>Архив показаний | ЭнергоУчет</title>
+    <style>
+      /* Стили для страницы архива (дополнения) */
+      .filter-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        gap: 16px;
+        background: white;
+        padding: 20px;
+        border-radius: var(--radius-lg);
+        margin-bottom: 24px;
+        border: 1px solid var(--gray-200);
+      }
+      .filter-group {
+        flex: 1 1 180px;
+        min-width: 160px;
+      }
+      .filter-group label {
+        display: block;
+        margin-bottom: 4px;
+        font-weight: 500;
+        color: var(--gray-700);
+      }
+      .filter-select {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid var(--gray-300);
+        border-radius: var(--radius-md);
+        background: white;
+      }
+      .filter-actions {
+        display: flex;
+        gap: 8px;
+        margin-left: auto;
+      }
+      .print-receipt-btn {
+        background: none;
+        border: 1px solid var(--gray-300);
+        border-radius: var(--radius-md);
+        padding: 6px 12px;
+        cursor: pointer;
+        font-size: 0.875rem;
+        color: var(--gray-700);
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        white-space: nowrap;
+      }
+      .print-receipt-btn:hover {
+        background: var(--primary-light);
+        border-color: var(--primary);
+        color: var(--primary);
+      }
+      .archive-card .btn--small {
+        margin-top: 12px;
+        width: 100%;
+      }
+      /* Адаптив фильтров */
+      @media (max-width: 768px) {
+        .filter-actions {
+          width: 100%;
+          margin-left: 0;
+          justify-content: flex-end;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <!-- Шапка -->
+      <header class="header">
+        <div class="container header__container">
+          <a href="/" class="logo" title="На главную страницу">
+            <img
+              src="assets/img/logo.png"
+              alt="Логотип Все счётчики"
+              width="40"
+              height="40"
+            />
+            <span class="logo__text">Все счётчики</span>
+          </a>
+
+          <!-- Основная навигация (Требование 7: nav) -->
+          <nav class="main-nav" aria-label="Основное меню">
+            <button
+              class="mobile-menu-toggle"
+              aria-label="Открыть меню"
+              aria-expanded="false"
+            >
+              <span class="hamburger"></span>
+            </button>
+            <ul class="main-nav__list">
+              <li>
+                <a
+                  href="/"
+                  class="main-nav__link"
+                  title="Главная страница"
+                  >Главная</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/archive.html"
+                  class="main-nav__link active"
+                  title="Архив показаний"
+                  >Архив</a
+                >
+              </li>
+              <li>
+                <a href="/input.html" class="main-nav__link " title="Квитанции"
+                  >Передать показания</a
+                >
+              </li>
+            </ul>
+          </nav>
+
+          <!-- Профиль -->
+          <a href="/login.html" class="user-profile">
+            <button
+              class="user-profile__btn"
+              aria-label="Профиль пользователя"
+              title="Настройки профиля"
+            >
+              <img
+                src="assets/img/icon-user.png"
+                alt="Аватар пользователя"
+                width="40"
+                height="40"
+              />
+              <span class="user-profile__name">Иван</span>
+            </button>
+          </a>
+        </div>
+      </header>
+
+      <!-- ===== ХЛЕБНЫЕ КРОШКИ (Требование 12) ===== -->
+      <nav class="breadcrumbs" aria-label="Хлебные крошки">
+        <div class="container">
+          <ol class="breadcrumbs__list">
+            <li class="breadcrumbs__item">
+              <a href="/" class="breadcrumbs__link" title="Главная">Главная</a>
+            </li>
+            <li class="breadcrumbs__item active" aria-current="page">
+              <span>Архив показаний</span>
+            </li>
+          </ol>
+        </div>
+      </nav>
+
+      <main class="main">
+        <div class="container">
+          <div class="page-header">
+            <h1 class="page-title">Архив показаний</h1>
+            <div class="page-actions">
+              <button
+                class="btn btn--secondary"
+                id="exportExcelBtn"
+                title="Экспорт в Excel"
+              >
+                📊 Экспорт в Excel
+              </button>
+              <button
+                class="btn btn--secondary"
+                id="exportPdfBtn"
+                title="Скачать PDF всей таблицы"
+              >
+                📄 Скачать PDF
+              </button>
+            </div>
+          </div>
+
+          <!-- Фильтры в одну строку (как на макете) -->
+          <div class="filter-row">
+            <div class="filter-group">
+              <label for="meterFilter">№ счетчика</label>
+              <select id="meterFilter" class="filter-select">
+                <option value="">Все</option>
+                <option>53048</option>
+                <option>56845</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="typeFilter">Тип</label>
+              <select id="typeFilter" class="filter-select">
+                <option value="">Все</option>
+                <option>Вода</option>
+                <option>Электричество</option>
+                <option>Газ</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="periodFilter">Период</label>
+              <select id="periodFilter" class="filter-select">
+                <option value="">За все время</option>
+                <option>Март 2026</option>
+                <option>2026 год</option>
+              </select>
+            </div>
+            <div class="filter-actions">
+              <button class="btn btn--primary btn--small" id="applyFilterBtn">
+                Применить
+              </button>
+              <button class="btn btn--link" id="resetFilterBtn">
+                Сбросить
+              </button>
+            </div>
+          </div>
+
+          <!-- Таблица (десктоп/планшет) -->
+          <div class="table-responsive hidden-mobile">
+            <table class="data-table" id="archiveTable">
+              <thead>
+                <tr>
+                  <th>Дата</th>
+                  <th>Ресурс</th>
+                  <th>№ счетч.</th>
+                  <th>Пред.</th>
+                  <th>Текущ.</th>
+                  <th>Расход</th>
+                  <th>Тариф</th>
+                  <th>Сумма</th>
+                  <th>Ответст.</th>
+                  <th>Действия</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-id="1">
+                  <td>05.05.2018</td>
+                  <td>
+                    <span class="resource-badge resource-badge--water"
+                      >Вода</span
+                    >
+                  </td>
+                  <td>53048</td>
+                  <td>55698</td>
+                  <td>55700</td>
+                  <td>2</td>
+                  <td>150</td>
+                  <td>300</td>
+                  <td>Иванов И.И.</td>
+                  <td>
+                    <button class="print-receipt-btn">🖨️ Квитанция</button>
+                  </td>
+                </tr>
+                <tr data-id="2">
+                  <td>11.03.2026</td>
+                  <td>
+                    <span class="resource-badge resource-badge--water"
+                      >Вода</span
+                    >
+                  </td>
+                  <td>56845</td>
+                  <td>25684</td>
+                  <td>25700</td>
+                  <td>16</td>
+                  <td>150</td>
+                  <td>2400</td>
+                  <td>Петров П.П.</td>
+                  <td>
+                    <button class="print-receipt-btn">🖨️ Квитанция</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Мобильные карточки -->
+          <div class="archive-cards visible-mobile" id="archiveCards">
+            <div class="archive-card" data-id="1">
+              <div class="archive-card__row"><span>Дата:</span> 05.05.2018</div>
+              <div class="archive-card__row"><span>Ресурс:</span> Вода</div>
+              <div class="archive-card__row">
+                <span>№ счетчика:</span> 53048
+              </div>
+              <div class="archive-card__row"><span>Пред.:</span> 55698</div>
+              <div class="archive-card__row"><span>Текущ.:</span> 55700</div>
+              <div class="archive-card__row"><span>Расход:</span> 2</div>
+              <div class="archive-card__row"><span>Тариф:</span> 150</div>
+              <div class="archive-card__row"><span>Сумма:</span> 300</div>
+              <div class="archive-card__row">
+                <span>Ответственный:</span>Иванов И.И.
+              </div>
+              <button
+                class="btn btn--small btn--outline print-receipt-btn-mobile"
+              >
+                🖨️ Распечатать квитанцию
+              </button>
+            </div>
+            <div class="archive-card" data-id="2">
+              <div class="archive-card__row"><span>Дата:</span> 11.03.2026</div>
+              <div class="archive-card__row"><span>Ресурс:</span> Вода</div>
+              <div class="archive-card__row">
+                <span>№ счетчика:</span> 56845
+              </div>
+              <div class="archive-card__row"><span>Пред.:</span> 25684</div>
+              <div class="archive-card__row"><span>Текущ.:</span> 25700</div>
+              <div class="archive-card__row"><span>Расход:</span> 16</div>
+              <div class="archive-card__row"><span>Тариф:</span> 150</div>
+              <div class="archive-card__row"><span>Сумма:</span> 2400</div>
+              <div class="archive-card__row">
+                <span>Ответственный:</span> Петров П.П.
+              </div>
+              <button
+                class="btn btn--small btn--outline print-receipt-btn-mobile"
+              >
+                🖨️ Распечатать квитанцию
+              </button>
+            </div>
+          </div>
+
+          <!-- Пагинация -->
+          <nav class="pagination" aria-label="Пагинация">
+            <ul class="pagination__list">
+              <li>
+                <a href="#" class="pagination__link pagination__link--prev"
+                  >←</a
+                >
+              </li>
+              <li><a href="#" class="pagination__link active">1</a></li>
+              <li><a href="#" class="pagination__link">2</a></li>
+              <li><a href="#" class="pagination__link">3</a></li>
+              <li><span class="pagination__dots">...</span></li>
+              <li><a href="#" class="pagination__link">12</a></li>
+              <li>
+                <a href="#" class="pagination__link pagination__link--next"
+                  >→</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <div class="container">
+          <p>&copy; 2026 Архив показаний счетчиков</p>
+        </div>
+      </footer>
+    </div>
+
+    <script src="assets/js/archive.js"></script>
+  </body>
+</html>

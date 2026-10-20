@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Запрашиваемая страница не найдена" />
+    <meta property="og:title" content="Ошибка 404 | Архив показаний" />
+    <meta
+      property="og:description"
+      content="Страница, которую вы ищете, не существует"
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <title>Ошибка 404 — Страница не найдена | Архив показаний счетчиков</title>
+    <style>
+      /* Стили те же, что и для 403, плюс специфичные при необходимости */
+      .error-page {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .error-content {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 2rem;
+      }
+      .error-card {
+        max-width: 500px;
+        background: white;
+        border-radius: var(--radius-xl);
+        padding: 3rem 2rem;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--gray-200);
+      }
+      .error-code {
+        font-size: 6rem;
+        font-weight: 700;
+        color: var(--primary);
+        line-height: 1;
+        margin-bottom: 1rem;
+      }
+      .error-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: var(--gray-900);
+      }
+      .error-message {
+        color: var(--gray-600);
+        margin-bottom: 2rem;
+      }
+      .error-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body class="error-page">
+    <header class="header">
+      <div class="container header__container">
+        <a href="/" class="logo" title="На главную">
+          <img src="assets/img/logo.svg" alt="Логотип" width="40" height="40" />
+          <span>Все счётчики</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="error-content">
+      <div class="container">
+        <div class="error-card">
+          <div class="error-code">404</div>
+          <h1 class="error-title">Страница не найдена</h1>
+          <p class="error-message">
+            К сожалению, запрашиваемая страница не существует.<br />
+            Возможно, она была удалена или вы ошиблись при вводе адреса.
+          </p>
+          <div class="error-actions">
+            <a href="/" class="btn btn--primary" title="Вернуться на главную"
+              >На главную</a
+            >
+            <a
+              href="/archive.html"
+              class="btn btn--secondary"
+              title="Перейти в архив"
+              >В архив</a
+            >
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 Архив показаний счетчиков</p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Требование 6: Уникальные метатеги -->
+    <meta
+      name="description"
+      content="Обзор потребления электроэнергии, воды и газа. Аналитика, история показаний и своевременная передача данных в УК."
+    />
+    <meta
+      name="keywords"
+      content="показания счетчиков, расход электроэнергии, вода, газ, ЖКХ, аналитика потребления"
+    />
+
+    <!-- Требование 20: Open Graph -->
+    <meta
+      property="og:title"
+      content="Обзор потребления | Архив показаний счетчиков"
+    />
+    <meta
+      property="og:description"
+      content="Отслеживайте расход электроэнергии, воды и газа. Аналитика по месяцам и история показаний."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://example.com/" />
+    <meta property="og:image" content="assets/img/og-dashboard.png" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:site_name" content="Архив показаний счетчиков" />
+
+    <!-- Требование 18: Favicon SVG -->
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+    <link rel="alternate icon" href="favicon.ico" />
+
+    <!-- Предзагрузка шрифтов (Требование 28: Производительность) -->
+    <link
+      rel="preload"
+      href="assets/fonts/inter-v13-latin_cyrillic-regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="assets/fonts/inter-v13-latin_cyrillic-600.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <link rel="stylesheet" href="assets/css/normalize.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/print.css" media="print" />
+
+    <title>Обзор потребления | Архив показаний счетчиков</title>
+
+    <!-- Требование 19: Schema.org микроразметка -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Обзор потребления ресурсов",
+        "description": "Дашборд с аналитикой потребления электроэнергии, воды и газа",
+        "mainEntity": {
+          "@type": "ItemList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "item": {
+                "@type": "Product",
+                "name": "Электроэнергия",
+                "description": "Расход за прошлый месяц 250 кВт/ч"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "item": {
+                "@type": "Product",
+                "name": "Вода",
+                "description": "Расход за прошлый месяц 3,25 м³"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "item": {
+                "@type": "Product",
+                "name": "Газ",
+                "description": "Расход за прошлый месяц 2,5 м³"
+              }
+            }
+          ]
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="layout">
+      <!-- ===== HEADER ===== -->
+      <header class="header">
+        <div class="container header__container">
+          <a href="/" class="logo" title="На главную страницу">
+            <img
+              src="assets/img/logo.png"
+              alt="Логотип Все счётчики"
+              width="40"
+              height="40"
+            />
+            <span class="logo__text">Все счётчики</span>
+          </a>
+
+          <!-- Основная навигация (Требование 7: nav) -->
+          <nav class="main-nav" aria-label="Основное меню">
+            <button
+              class="mobile-menu-toggle"
+              aria-label="Открыть меню"
+              aria-expanded="false"
+            >
+              <span class="hamburger"></span>
+            </button>
+            <ul class="main-nav__list">
+              <li>
+                <a
+                  href="/"
+                  class="main-nav__link active"
+                  title="Главная страница"
+                  >Главная</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/archive.html"
+                  class="main-nav__link"
+                  title="Архив показаний"
+                  >Архив</a
+                >
+              </li>
+              <li>
+                <a href="/input.html" class="main-nav__link" title="Квитанции"
+                  >Передать показания</a
+                >
+              </li>
+            </ul>
+          </nav>
+
+          <!-- Профиль -->
+          <a href="/login.html" class="user-profile">
+            <button
+              class="user-profile__btn"
+              aria-label="Профиль пользователя"
+              title="Настройки профиля"
+            >
+              <img
+                src="assets/img/icon-user.png"
+                alt="Аватар пользователя"
+                width="40"
+                height="40"
+              />
+              <span class="user-profile__name">Иван</span>
+            </button>
+          </a>
+        </div>
+      </header>
+
+      <!-- ===== ХЛЕБНЫЕ КРОШКИ (Требование 12) ===== -->
+      <nav class="breadcrumbs" aria-label="Хлебные крошки">
+        <div class="container">
+          <ol class="breadcrumbs__list">
+            <li class="breadcrumbs__item">
+              <a href="/" class="breadcrumbs__link" title="Главная">Главная</a>
+            </li>
+            <li class="breadcrumbs__item active" aria-current="page">
+              <span>Обзор потребления</span>
+            </li>
+          </ol>
+        </div>
+      </nav>
+
+      <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+      <main class="main">
+        <div class="container">
+          <!-- Заголовок -->
+          <h1 class="page-title">Обзор потребления</h1>
+
+          <!-- ===== КАРТОЧКИ РЕСУРСОВ ===== -->
+          <section class="resources-grid" aria-labelledby="resources-heading">
+            <h2 id="resources-heading" class="visually-hidden">
+              Расход по ресурсам
+            </h2>
+
+            <!-- Карточка: Электроэнергия -->
+            <article class="resource-card resource-card--electricity">
+              <div class="resource-card__header">
+                <div class="resource-card__icon">
+                  <img
+                    src="assets/img/flash.png"
+                    alt=""
+                    aria-hidden="true"
+                    width="32"
+                    height="32"
+                  />
+                </div>
+                <h3 class="resource-card__title">Электроэнергия</h3>
+              </div>
+              <div class="resource-card__body">
+                <p class="resource-card__label">Расход за прошлый месяц</p>
+                <p class="resource-card__value">
+                  250 <span class="unit">кВт/ч</span>
+                </p>
+                <p class="resource-card__total">
+                  Сумма за месяц: <strong>1 250 ₽</strong>
+                </p>
+              </div>
+            </article>
+
+            <!-- Карточка: Вода -->
+            <article class="resource-card resource-card--water">
+              <div class="resource-card__header">
+                <div class="resource-card__icon">
+                  <img
+                    src="assets/img/blood-drop.png"
+                    alt=""
+                    aria-hidden="true"
+                    width="32"
+                    height="32"
+                  />
+                </div>
+                <h3 class="resource-card__title">Вода</h3>
+              </div>
+              <div class="resource-card__body">
+                <p class="resource-card__label">Расход за прошлый месяц</p>
+                <p class="resource-card__value">
+                  3,25 <span class="unit">м³</span>
+                </p>
+                <p class="resource-card__total">
+                  Сумма за месяц: <strong>500 ₽</strong>
+                </p>
+              </div>
+            </article>
+
+            <!-- Карточка: Газ -->
+            <article class="resource-card resource-card--gas">
+              <div class="resource-card__header">
+                <div class="resource-card__icon">
+                  <img
+                    src="assets/img/flame.png"
+                    alt=""
+                    aria-hidden="true"
+                    width="32"
+                    height="32"
+                  />
+                </div>
+                <h3 class="resource-card__title">Газ</h3>
+              </div>
+              <div class="resource-card__body">
+                <p class="resource-card__label">Расход за прошлый месяц</p>
+                <p class="resource-card__value">
+                  2,5 <span class="unit">м³</span>
+                </p>
+                <p class="resource-card__total">
+                  Сумма за месяц: <strong>3 200 ₽</strong>
+                </p>
+              </div>
+            </article>
+          </section>
+
+          <!-- ===== АНАЛИТИКА ПОТРЕБЛЕНИЯ ===== -->
+          <section
+            class="analytics-section"
+            aria-labelledby="analytics-heading"
+          >
+            <div class="analytics-header">
+              <h2 id="analytics-heading" class="section-title">
+                Аналитика потребления
+              </h2>
+
+              <!-- Табы (Требование 13: дублирование JS-ссылок) -->
+              <div class="tabs" role="tablist">
+                <button
+                  class="tab-btn active"
+                  role="tab"
+                  aria-selected="true"
+                  data-tab="electricity"
+                >
+                  Электричество
+                </button>
+                <button
+                  class="tab-btn"
+                  role="tab"
+                  aria-selected="false"
+                  data-tab="water"
+                >
+                  Вода
+                </button>
+                <button
+                  class="tab-btn"
+                  role="tab"
+                  aria-selected="false"
+                  data-tab="gas"
+                >
+                  Газ
+                </button>
+              </div>
+
+              <!-- Текстовые дубли ссылок (Требование 13) -->
+              <noscript>
+                <div class="no-js-tabs">
+                  <a
+                    href="/analytics/electricity.html"
+                    title="Аналитика по электричеству"
+                    >Электричество</a
+                  >
+                  |
+                  <a href="/analytics/water.html" title="Аналитика по воде"
+                    >Вода</a
+                  >
+                  |
+                  <a href="/analytics/gas.html" title="Аналитика по газу"
+                    >Газ</a
+                  >
+                </div>
+              </noscript>
+            </div>
+
+            <!-- График (Требование 3) -->
+            <div class="chart-container">
+              <div class="chart-header">
+                <h3 class="chart-title">Расход электроэнергии</h3>
+              </div>
+              <div class="chart-wrapper">
+                <canvas
+                  id="consumptionChart"
+                  width="800"
+                  height="300"
+                  role="img"
+                  aria-label="График расхода электроэнергии по месяцам"
+                ></canvas>
+              </div>
+              <!-- Запасной текст для скринридеров -->
+              <div class="visually-hidden">
+                Значения по месяцам: Январь 280, Февраль 260, Март 290, Апрель
+                310, Май 250, Июнь 240, Июль 230, Август 220, Сентябрь 240,
+                Октябрь 270, Ноябрь 290, Декабрь 310 кВт/ч.
+              </div>
+            </div>
+          </section>
+
+          <!-- ===== ТАБЛИЦА ПОСЛЕДНИХ ПОКАЗАНИЙ ===== -->
+          <section class="table-section" aria-labelledby="table-heading">
+            <div class="table-header">
+              <h2 id="table-heading" class="section-title">
+                Последние показания
+              </h2>
+              <a
+                href="/archive.html"
+                class="view-all-link"
+                title="Перейти к полному архиву"
+              >
+                Смотреть весь архив →
+              </a>
+            </div>
+
+            <div class="table-responsive">
+              <table class="data-table">
+                <caption class="visually-hidden">
+                  Таблица последних показаний счетчиков
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Ресурс</th>
+                    <th scope="col">Дата</th>
+                    <th scope="col">Пред. показания</th>
+                    <th scope="col">Текущ. показания</th>
+                    <th scope="col">Израсходовано</th>
+                    <th scope="col">Тариф</th>
+                    <th scope="col">Сумма</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Строка 1 -->
+                  <tr>
+                    <td>
+                      <span class="resource-badge resource-badge--water"
+                        >Вода</span
+                      >
+                    </td>
+                    <td>11.03.2026</td>
+                    <td>325 м³</td>
+                    <td>350 м³</td>
+                    <td>25 м³</td>
+                    <td>150 ₽/м³</td>
+                    <td><strong>3 750 ₽</strong></td>
+                  </tr>
+                  <!-- Строка 2 -->
+                  <tr>
+                    <td>
+                      <span class="resource-badge resource-badge--water"
+                        >Вода</span
+                      >
+                    </td>
+                    <td>11.02.2026</td>
+                    <td>300 м³</td>
+                    <td>325 м³</td>
+                    <td>25 м³</td>
+                    <td>150 ₽/м³</td>
+                    <td><strong>3 750 ₽</strong></td>
+                  </tr>
+                  <!-- Строка 3 -->
+                  <tr>
+                    <td>
+                      <span class="resource-badge resource-badge--electricity"
+                        >Электричество</span
+                      >
+                    </td>
+                    <td>11.03.2026</td>
+                    <td>1 200 кВт</td>
+                    <td>1 450 кВт</td>
+                    <td>250 кВт</td>
+                    <td>5 ₽/кВт</td>
+                    <td><strong>1 250 ₽</strong></td>
+                  </tr>
+                  <!-- Строка 4 -->
+                  <tr>
+                    <td>
+                      <span class="resource-badge resource-badge--gas"
+                        >Газ</span
+                      >
+                    </td>
+                    <td>11.03.2026</td>
+                    <td>125 м³</td>
+                    <td>130 м³</td>
+                    <td>5 м³</td>
+                    <td>640 ₽/м³</td>
+                    <td><strong>3 200 ₽</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Пагинация (Требование 11) -->
+            <nav class="pagination" aria-label="Пагинация таблицы">
+              <ul class="pagination__list">
+                <li>
+                  <a
+                    href="#"
+                    class="pagination__link pagination__link--prev"
+                    aria-label="Предыдущая страница"
+                    title="Предыдущая страница"
+                    >←</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="pagination__link active"
+                    aria-current="page"
+                    title="Страница 1"
+                    >1</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="pagination__link" title="Страница 2">2</a>
+                </li>
+                <li>
+                  <a href="#" class="pagination__link" title="Страница 3">3</a>
+                </li>
+                <li><span class="pagination__dots">...</span></li>
+                <li>
+                  <a href="#" class="pagination__link" title="Страница 8">8</a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="pagination__link pagination__link--next"
+                    aria-label="Следующая страница"
+                    title="Следующая страница"
+                    >→</a
+                  >
+                </li>
+              </ul>
+            </nav>
+          </section>
+
+          <!-- ===== БЛОК ВНЕСЕНИЯ ПОКАЗАНИЙ ===== -->
+          <aside class="cta-section" aria-labelledby="cta-heading">
+            <div class="cta-card">
+              <div class="cta-card__content">
+                <h3 id="cta-heading" class="cta-card__title">
+                  Пора передать показания
+                </h3>
+                <p class="cta-card__text">
+                  Рекомендуемый срок подачи данных — до 25-го числа текущего
+                  месяца.
+                </p>
+              </div>
+              <div class="cta-card__action">
+                <a
+                  href="/input.html"
+                  class="btn btn--primary"
+                  title="Перейти к форме ввода показаний"
+                >
+                  Внести показания
+                </a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </main>
+
+      <!-- ===== FOOTER ===== -->
+      <footer class="footer" role="contentinfo">
+        <div class="container">
+          <div class="footer__content">
+            <p class="footer__copyright">
+              &copy; 2026 ЭнергоУчет. Все права защищены.
+            </p>
+            <nav class="footer-nav" aria-label="Дополнительная навигация">
+              <ul class="footer-nav__list">
+                <li>
+                  <a
+                    href="/privacy.html"
+                    class="footer-nav__link"
+                    title="Политика конфиденциальности"
+                    >Политика конфиденциальности</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="/terms.html"
+                    class="footer-nav__link"
+                    title="Условия использования"
+                    >Условия использования</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="/contacts.html"
+                    class="footer-nav__link"
+                    title="Контакты"
+                    >Контакты</a
+                  >
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Скрипты -->
+    <script src="assets/js/charts.js" defer></script>
+    <script src="assets/js/main.js" defer></script>
+    <script src="assets/js/validation.js" defer></script>
+  </body>
+</html>

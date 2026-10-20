@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отчёт по лабораторной работе №3 | Архив показаний счетчиков</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.5;
+            color: #000;
+            background: #fff;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 16pt;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0 10px;
+        }
+        h2 {
+            font-size: 14pt;
+            font-weight: bold;
+            margin: 20px 0 10px;
+            text-align: left;
+        }
+        h3 {
+            font-size: 12pt;
+            font-weight: bold;
+            margin: 15px 0 10px;
+        }
+        p {
+            margin: 10px 0;
+            text-align: justify;
+        }
+        .title-page {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .university {
+            font-size: 12pt;
+            margin: 5px 0;
+        }
+        .faculty {
+            font-size: 12pt;
+            margin: 30px 0 5px;
+        }
+        .work-title {
+            font-size: 16pt;
+            font-weight: bold;
+            margin: 40px 0 20px;
+        }
+        .student-info {
+            margin: 40px 0 20px;
+            text-align: left;
+        }
+        .city-year {
+            margin-top: 60px;
+            text-align: center;
+        }
+        .toc {
+            margin: 20px 0;
+        }
+        .toc-item {
+            margin: 5px 0;
+        }
+        .figure {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .figure-placeholder {
+            background: #f0f0f0;
+            border: 2px dashed #999;
+            border-radius: 8px;
+            padding: 40px 20px;
+            margin: 10px 0;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .figure-caption {
+            font-size: 11pt;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 10pt;
+        }
+        pre {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 10pt;
+            line-height: 1.4;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background: #f0f0f0;
+            font-weight: bold;
+        }
+        .signature-line {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        .appendix {
+            margin-top: 30px;
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+            body {
+                padding: 0;
+            }
+            .figure-placeholder {
+                background: none;
+                border: 1px dashed #ccc;
+            }
+            .page-break {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== ТИТУЛЬНЫЙ ЛИСТ ===== -->
+<div class="title-page">
+    <div class="university">Министерство науки и высшего образования РФ</div>
+    <div class="university">Федеральное государственное автономное образовательное учреждение</div>
+    <div class="university">высшего образования «Омский государственный технический университет»</div>
+    <div class="faculty">Кафедра «Автоматизированные системы обработки информации и управления»</div>
+    
+    <div class="work-title">
+        <h1>ОТЧЁТ<br>ПО ЛАБОРАТОРНОЙ РАБОТЕ №3</h1>
+    </div>
+    
+    <p style="margin: 30px 0;">по дисциплине «WEB-программирование»</p>
+    <p>студента Симонова Тимофея Валерьевича, группы ПИН-232</p>
+    
+    <div style="margin: 40px 0;">
+        <p><strong>Пояснительная записка</strong></p>
+        <p>Шифр проекта КП--02068999--45 ПЗ</p>
+        <p>Направление 09.03.04 Программная инженерия</p>
+    </div>
+    
+    <div class="signature-line" style="width: 70%; margin: 60px auto 20px;">
+        <span>Руководитель</span>
+        <span>доцент к. т. н.</span>
+        <span>___________</span>
+        <span>Е.О. Викулов</span>
+    </div>
+    
+    <div class="signature-line" style="width: 70%; margin: 10px auto;">
+        <span>Студент</span>
+        <span></span>
+        <span>___________</span>
+        <span>Т.В. Симонов</span>
+    </div>
+    
+    <div class="city-year">Омск 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ===== СОДЕРЖАНИЕ ===== -->
+<h2>Содержание</h2>
+<div class="toc">
+    <div class="toc-item">Введение ................................................................................................... 3</div>
+    <div class="toc-item">Результаты выполнения ............................................................................ 4</div>
+    <div class="toc-item">Заключение ................................................................................................ 8</div>
+    <div class="toc-item">Приложение 1. HTML-код страниц ........................................................... 9</div>
+    <div class="toc-item">Приложение 2. JavaScript-код .................................................................. 13</div>
+    <div class="toc-item">Приложение 3. CSS-код ............................................................................ 18</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ===== ВВЕДЕНИЕ ===== -->
+<h2>Введение</h2>
+<p>Разработка веб-сайта «Архив показаний счетчиков» представляет собой процесс создания функционального интерфейса для учёта и систематизации показаний приборов учёта коммунальных ресурсов (вода, газ, электричество). В рамках данной лабораторной работы необходимо выполнить вёрстку веб-страниц архива показаний, страницу ввода показаний, страницу авторизации и страницу квитанции.</p>
+<p>Основой для работы служит макет, разработанный в Figma. Задача вёрстки — точно воспроизвести визуальное оформление макета, а также обеспечить функциональность всех элементов интерфейса в соответствии с техническим заданием.</p>
+<p>Цель данной работы — получить готовый веб-сайт, который соответствует макету дизайна и удовлетворяет всем 30+ функциональным и нефункциональным требованиям. Выполнение этой задачи требует применения современных технологий веб-разработки (HTML5, CSS3, чистый JavaScript) и соблюдения стандартов вёрстки.</p>
+
+<div class="page-break"></div>
+
+<!-- ===== РЕЗУЛЬТАТЫ ВЫПОЛНЕНИЯ ===== -->
+<h2>Результаты выполнения</h2>
+<p>В рамках выполнения работы необходимо было сверстать сайт архива показаний счетчиков. На рисунках 1–7 отображены фрагменты кода страниц. Полный код HTML-страниц представлен в приложении 1.</p>
+
+<h3>Главная страница (дашборд)</h3>
+<p>На рисунке 1 представлен фрагмент HTML-разметки главной страницы сайта — дашборда с обзором потребления. Этот фрагмент задаёт структурную основу страницы, включая карточки ресурсов, график потребления и таблицу последних показаний.</p>
+
+<div class="figure">
+    <div class="figure-placeholder">
+        <strong>МЕСТО ДЛЯ СКРИНШОТА 1</strong><br>
+        (Скриншот кода главной страницы index.html)
+    </div>
+    <div class="figure-caption">Рисунок 1 — Код главной страницы (index.html)</div>
+</div>
+
+<h3>Страница архива показаний</h3>
+<p>На рисунке 2 изображена структура страницы архива показаний. Формирует каркас страницы архива, куда позже будут выведены данные из истории показаний, а также элементы фильтрации, экспорта и пагинации.</p>
+
+<div class="figure">
+    <div class="figure-placeholder">
+        <strong>МЕСТО ДЛЯ СКРИНШОТА 2</strong><br>
+        (Скриншот кода страницы архива archive.html)
+    </div>
+    <div class="figure-caption">Рисунок 2 — Код страницы архива (archive.html)</div>
+</div>
+
+<h3>Страница ввода показаний</h3>
+<p>На рисунке 3 представлена структура страницы ввода показаний. Эта страница отображает форму с валидацией, автоматическим расчётом расхода и суммы, а также сообщение об успешной передаче данных.</p>
+
+<div class="figure">
+    <div class="figure-placeholder">
+        <strong>МЕСТО ДЛЯ СКРИНШОТА 3</strong><br>
+        (Скриншот кода страницы ввода показаний input.html)
+    </div>
+    <div class="figure-caption">Рисунок 3 — Код страницы ввода показаний (input.html)</div>
+</div>
+
+<h3>Страница авторизации</h3>
+<p>На рисунке 4 представлена разметка страницы входа в систему.</p>
+
+<div class="figure">
+    <div class="figure-placeholder">
+        <strong>МЕСТО ДЛЯ СКРИНШОТА 4</strong><br>
+        (Скриншот кода страницы авторизации login.html)
+    </div>
+    <div class="figure-caption">Рисунок 4 — Код страницы авторизации (login.html)</div>
+</div>
+
+<h3>Результаты вёрстки страниц</h3>
+<p>На рисунках 5–9 представлены результаты вёрстки страниц в десктопной и мобильной версиях.</p>
+
+<div class="figure">
+    <div class="figure-placeholder">
+        <strong>МЕСТО ДЛЯ СКРИНШОТА 5</strong><br>
+        (Скриншот главной страницы — десктоп)
+    </div>
+    <div class="figure-caption">Рисунок 5 — Главная страница (десктопная версия)</div>
+</div>
+
+<div class="figure">
+    <div class="figure-placeholder">
+        <strong>МЕСТО ДЛЯ СКРИНШОТА 6</strong><br>
+        (Скриншот страницы архива — десктоп)
+    </div>
+    <div class="figure-caption">Рисунок 6 — Страница архива показаний (десктопная версия)</div>
+</div>
+
+<div class="figure">
+    <div class="figure-placeholder">
+        <strong>МЕСТО ДЛЯ СКРИНШОТА 7</strong><br>
+        (Скриншот страницы ввода показаний)
+    </div>
+    <div class="figure-caption">Рисунок 7 — Страница ввода показаний</div>
+</div>
+
+<div class="figure">
+    <div class="figure-placeholder">
+        <strong>МЕСТО ДЛЯ СКРИНШОТА 8</strong><br>
+        (Скриншот мобильной версии главной страницы)
+    </div>
+    <div class="figure-caption">Рисунок 8 — Главная страница (мобильная версия)</div>
+</div>
+
+<div class="figure">
+    <div class="figure-placeholder">
+        <strong>МЕСТО ДЛЯ СКРИНШОТА 9</strong><br>
+        (Скриншот мобильной версии архива показаний)
+    </div>
+    <div class="figure-caption">Рисунок 9 — Страница архива (мобильная версия)</div>
+</div>
+
+<h3>Фрагменты JavaScript кода</h3>
+<p>На рисунках 10–12 отображены фрагменты JS кода.</p>
+
+<div class="figure">
+    <div class="figure-placeholder">
+        <strong>МЕСТО ДЛЯ СКРИНШОТА 10</strong><br>
+        (Скриншот функции валидации и расчёта показаний)
+    </div>
+    <div class="figure-caption">Рисунок 10 — Функция валидации и автоматического расчёта</div>
+</div>
+<p>На рисунке 10 изображена ключевая функция, которая отвечает за проверку введённых показаний (текущие должны быть больше предыдущих) и автоматический расчёт расхода и суммы к оплате.</p>
+
+<div class="figure">
+    <div class="figure-placeholder">
+        <strong>МЕСТО ДЛЯ СКРИНШОТА 11</strong><br>
+        (Скриншот функции генерации квитанции)
+    </div>
+    <div class="figure-caption">Рисунок 11 — Функция генерации квитанции для печати</div>
+</div>
+<p>На рисунке 11 представлен фрагмент кода, который формирует HTML-квитанцию на основе данных выбранной строки архива и открывает окно печати.</p>
+
+<div class="figure">
+    <div class="figure-placeholder">
+        <strong>МЕСТО ДЛЯ СКРИНШОТА 12</strong><br>
+        (Скриншот функции построения графика на Canvas)
+    </div>
+    <div class="figure-caption">Рисунок 12 — Функция построения графика потребления</div>
+</div>
+<p>На рисунке 12 изображён код, который отрисовывает график потребления ресурсов по месяцам с использованием Canvas API.</p>
+
+<p>Полный код страниц указан в приложении 1. Код JavaScript представлен в приложении 2. Также код, разработанный в CSS файле, указан в приложении 3.</p>
+
+<div class="page-break"></div>
+
+<!-- ===== ЗАКЛЮЧЕНИЕ ===== -->
+<h2>Заключение</h2>
+<p>В ходе выполнения лабораторной работы были успешно реализованы все запланированные веб-страницы сайта «Архив показаний счетчиков» в соответствии с макетом Figma и техническим заданием.</p>
+<p>Разработаны и сверстаны:</p>
+<ul style="margin-left: 30px;">
+    <li>Главная страница (дашборд) с карточками ресурсов, графиком потребления и таблицей последних показаний;</li>
+    <li>Страница архива показаний с фильтрацией, экспортом в Excel/PDF и возможностью печати индивидуальных квитанций;</li>
+    <li>Страница ввода показаний с валидацией и автоматическим расчётом;</li>
+    <li>Страница авторизации;</li>
+    <li>Страницы ошибок 403 и 404;</li>
+    <li>Адаптивные версии для планшетов и мобильных устройств;</li>
+    <li>Версии для печати.</li>
+</ul>
+<p>Все функциональные и нефункциональные требования, включая семантическую вёрстку, микроразметку, Open Graph, ЧПУ, настройку robots.txt и sitemap.xml, выполнены в полном объёме.</p>
+<p>Данная работа позволила углубить практические навыки в области веб-вёрстки, в частности, в использовании HTML5 для семантического структурирования контента, CSS3 для создания адаптивного и кроссбраузерного дизайна, а также чистого JavaScript для реализации интерактивных элементов без использования фреймворков.</p>
+
+<div class="page-break"></div>
+
+<!-- ===== ПРИЛОЖЕНИЕ 1 ===== -->
+<h2>Приложение 1. HTML-код страниц</h2>
+
+<h3>index.html (фрагмент)</h3>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="ru"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;meta name="description" content="Обзор потребления электроэнергии, воды и газа"&gt;
+    &lt;meta property="og:title" content="Обзор потребления | Архив показаний"&gt;
+    &lt;link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg"&gt;
+    &lt;link rel="stylesheet" href="assets/css/style.css"&gt;
+    &lt;title&gt;Обзор потребления | Архив показаний счетчиков&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="layout"&gt;
+        &lt;header class="header"&gt;
+            &lt;div class="container header__container"&gt;
+                &lt;a href="/" class="logo" title="На главную"&gt;
+                    &lt;img src="assets/img/logo.svg" alt="Логотип" width="40" height="40"&gt;
+                    &lt;span class="logo__text"&gt;Все счётчики&lt;/span&gt;
+                &lt;/a&gt;
+                &lt;nav class="page-nav"&gt;
+                    &lt;a href="/"&gt;Главная&lt;/a&gt; / &lt;span&gt;Обзор потребления&lt;/span&gt;
+                &lt;/nav&gt;
+                &lt;div class="user-profile"&gt;
+                    &lt;img src="assets/img/avatar.svg" alt="Аватар" width="32" height="32"&gt;
+                    &lt;span&gt;Иван&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/header&gt;
+        &lt;main class="main"&gt;
+            &lt;!-- Карточки ресурсов, график, таблица --&gt;
+        &lt;/main&gt;
+        &lt;footer class="footer"&gt;
+            &lt;p&gt;&copy; 2026 Архив показаний счетчиков&lt;/p&gt;
+        &lt;/footer&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<h3>archive.html (фрагмент)</h3>
+<pre>&lt;div class="filter-row"&gt;
+    &lt;div class="filter-group"&gt;
+        &lt;label for="meterFilter"&gt;№ счетчика&lt;/label&gt;
+        &lt;select id="meterFilter" class="filter-select"&gt;
+            &lt;option value=""&gt;Все&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+    &lt;div class="filter-group"&gt;
+        &lt;label for="typeFilter"&gt;Тип&lt;/label&gt;
+        &lt;select id="typeFilter" class="filter-select"&gt;
+            &lt;option value=""&gt;Все&lt;/option&gt;
+            &lt;option&gt;Вода&lt;/option&gt;
+            &lt;option&gt;Электричество&lt;/option&gt;
+            &lt;option&gt;Газ&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+    &lt;div class="filter-group"&gt;
+        &lt;label for="periodFilter"&gt;Период&lt;/label&gt;
+        &lt;select id="periodFilter" class="filter-select"&gt;
+            &lt;option value=""&gt;За все время&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+    &lt;div class="filter-actions"&gt;
+        &lt;button class="btn btn--primary"&gt;Применить&lt;/button&gt;
+        &lt;button class="btn btn--link"&gt;Сбросить&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;table class="data-table" id="archiveTable"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Дата&lt;/th&gt;&lt;th&gt;Ресурс&lt;/th&gt;&lt;th&gt;№ счетч.&lt;/th&gt;
+            &lt;th&gt;Пред.&lt;/th&gt;&lt;th&gt;Текущ.&lt;/th&gt;&lt;th&gt;Расход&lt;/th&gt;
+            &lt;th&gt;Тариф&lt;/th&gt;&lt;th&gt;Сумма&lt;/th&gt;&lt;th&gt;Ответст.&lt;/th&gt;
+            &lt;th&gt;Действия&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;05.05.2018&lt;/td&gt;
+            &lt;td&gt;Вода&lt;/td&gt;
+            &lt;td&gt;53048&lt;/td&gt;
+            &lt;td&gt;55698&lt;/td&gt;
+            &lt;td&gt;55700&lt;/td&gt;
+            &lt;td&gt;2&lt;/td&gt;
+            &lt;td&gt;150&lt;/td&gt;
+            &lt;td&gt;300&lt;/td&gt;
+            &lt;td&gt;Иванов И.И.&lt;/td&gt;
+            &lt;td&gt;&lt;button class="print-receipt-btn"&gt;Квитанция&lt;/button&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</pre>
+
+<h3>input.html (фрагмент)</h3>
+<pre>&lt;div class="form-card"&gt;
+    &lt;form id="meterReadingForm"&gt;
+        &lt;div class="form-group"&gt;
+            &lt;label for="meterSelect"&gt;№ счетчика&lt;/label&gt;
+            &lt;select id="meterSelect" class="form-control" required&gt;
+                &lt;option value=""&gt;Выберите счетчик&lt;/option&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+        &lt;div class="meter-info"&gt;
+            &lt;div&gt;&lt;span&gt;Тип:&lt;/span&gt; &lt;strong id="meterType"&gt;—&lt;/strong&gt;&lt;/div&gt;
+            &lt;div&gt;&lt;span&gt;Тариф:&lt;/span&gt; &lt;strong id="meterTariff"&gt;—&lt;/strong&gt; руб.&lt;/div&gt;
+            &lt;div&gt;&lt;span&gt;Адрес:&lt;/span&gt; &lt;span id="meterAddress"&gt;—&lt;/span&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="form-group"&gt;
+            &lt;label for="currentReading"&gt;Текущие показания *&lt;/label&gt;
+            &lt;input type="number" id="currentReading" class="form-control" required&gt;
+            &lt;div class="error-feedback"&gt;Показания должны быть больше предыдущих&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="total-block"&gt;
+            &lt;div&gt;Итого к начислению&lt;/div&gt;
+            &lt;div&gt;Расход: &lt;strong id="consumptionValue"&gt;0&lt;/strong&gt; м³&lt;/div&gt;
+            &lt;div&gt;Сумма: &lt;strong id="totalAmount"&gt;0&lt;/strong&gt; руб.&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="form-actions"&gt;
+            &lt;button type="submit" class="btn btn--primary"&gt;Сохранить&lt;/button&gt;
+            &lt;button type="button" class="btn btn--secondary"&gt;Отменить&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
+&lt;/div&gt;</pre>
+
+<div class="page-break"></div>
+
+<!-- ===== ПРИЛОЖЕНИЕ 2 ===== -->
+<h2>Приложение 2. JavaScript-код</h2>
+
+<h3>validation.js (валидация и расчёт)</h3>
+<pre>function calculateTotal() {
+    const prev = parseFloat(prevReading.value) || 0;
+    const curr = parseFloat(currentReading.value) || 0;
+    
+    if (curr > prev) {
+        const consumption = curr - prev;
+        consumptionSpan.textContent = consumption.toFixed(3);
+        const amount = consumption * currentTariff;
+        totalAmountSpan.textContent = amount.toFixed(2);
+        currentReading.setCustomValidity('');
+        currentError.style.display = 'none';
+    } else {
+        consumptionSpan.textContent = '0';
+        totalAmountSpan.textContent = '0';
+        if (currentReading.value) {
+            currentReading.setCustomValidity('Показания должны быть больше предыдущих');
+            currentError.style.display = 'block';
+        }
+    }
+}</pre>
+
+<h3>Генерация квитанции для печати</h3>
+<pre>function generateReceiptHTML(rowData) {
+    return `&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Квитанция ${rowData.resource}&lt;/title&gt;
+    &lt;style&gt;
+        body { font-family: 'Courier New', monospace; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 8px; }
+        @media print { .no-print { display: none; } }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="receipt"&gt;
+        &lt;h2&gt;Квитанция об оплате&lt;/h2&gt;
+        &lt;p&gt;№ Счетчика: ${rowData.meterNumber}&lt;/p&gt;
+        &lt;table&gt;
+            &lt;tr&gt;&lt;th&gt;Дата&lt;/th&gt;&lt;th&gt;Пред.&lt;/th&gt;&lt;th&gt;Текущ.&lt;/th&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td&gt;${rowData.date}&lt;/td&gt;&lt;td&gt;${rowData.prev}&lt;/td&gt;&lt;td&gt;${rowData.current}&lt;/td&gt;&lt;/tr&gt;
+        &lt;/table&gt;
+        &lt;table&gt;
+            &lt;tr&gt;&lt;th&gt;Услуга&lt;/th&gt;&lt;th&gt;Объем&lt;/th&gt;&lt;th&gt;Тариф&lt;/th&gt;&lt;th&gt;Сумма&lt;/th&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td&gt;${rowData.resource}&lt;/td&gt;&lt;td&gt;${rowData.consumption}&lt;/td&gt;
+                &lt;td&gt;${rowData.tariff}&lt;/td&gt;&lt;td&gt;${rowData.amount}&lt;/td&gt;&lt;/tr&gt;
+        &lt;/table&gt;
+        &lt;div class="total"&gt;Всего к оплате: ${rowData.amount} руб.&lt;/div&gt;
+        &lt;div class="no-print"&gt;
+            &lt;button onclick="window.print()"&gt;Печать&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;`;
+}
+
+function openReceiptPrint(rowData) {
+    const html = generateReceiptHTML(rowData);
+    const win = window.open('', '_blank', 'width=800,height=600');
+    win.document.write(html);
+    win.document.close();
+    setTimeout(() => win.print(), 200);
+}</pre>
+
+<h3>charts.js (график на Canvas)</h3>
+<pre>function drawChart(resourceType) {
+    const data = chartData[resourceType];
+    const values = data.data;
+    const maxValue = Math.max(...values) * 1.1;
+    
+    // Очистка canvas
+    chartContext.clearRect(0, 0, width, height);
+    
+    // Отрисовка сетки
+    for (let i = 0; i <= 5; i++) {
+        const y = padding.top + chartHeight - (i / 5) * chartHeight;
+        chartContext.beginPath();
+        chartContext.moveTo(padding.left, y);
+        chartContext.lineTo(padding.left + chartWidth, y);
+        chartContext.stroke();
+    }
+    
+    // Отрисовка линии
+    chartContext.beginPath();
+    chartContext.strokeStyle = color;
+    values.forEach((value, index) => {
+        const x = padding.left + index * (chartWidth / (values.length - 1));
+        const y = padding.top + chartHeight - (value / maxValue) * chartHeight;
+        if (index === 0) chartContext.moveTo(x, y);
+        else chartContext.lineTo(x, y);
+    });
+    chartContext.stroke();
+}</pre>
+
+<div class="page-break"></div>
+
+<!-- ===== ПРИЛОЖЕНИЕ 3 ===== -->
+<h2>Приложение 3. CSS-код</h2>
+
+<h3>style.css (фрагмент)</h3>
+<pre>:root {
+    --primary: #2563eb;
+    --primary-light: #dbeafe;
+    --gray-50: #f9fafb;
+    --gray-900: #111827;
+    --radius-lg: 0.75rem;
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    color: var(--gray-900);
+    background: var(--gray-50);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .resources-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .table-responsive {
+        font-size: 0.75rem;
+    }
+    
+    .hidden-mobile {
+        display: none;
+    }
+    
+    .visible-mobile {
+        display: block;
+    }
+}
+
+/* Стили для печати */
+@media print {
+    .header, .footer, .no-print {
+        display: none !important;
+    }
+    body {
+        background: white;
+    }
+}</pre>
+
+<h3>print.css</h3>
+<pre>@media print {
+    .header, .main-nav, .breadcrumbs, .filters-panel,
+    .pagination, .footer, .btn, .no-print {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+        font-size: 12pt;
+    }
+    
+    .data-table {
+        border: 1px solid #000;
+    }
+    
+    .data-table th {
+        background: #eee !important;
+    }
+}</pre>
+
+<!-- ===== ПОДВАЛ ОТЧЁТА ===== -->
+<div style="margin-top: 50px;"></div>
+
+<p class="no-print" style="text-align: center; margin-top: 30px; color: #666;">
+    ⚠️ В местах с серыми плашками необходимо вставить соответствующие скриншоты из вашего проекта.
+</p>
+
+</body>
+</html>
