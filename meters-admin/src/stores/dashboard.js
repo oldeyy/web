@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import api from '@/services/api'
+import { apiErrorMessage } from '@/services/errors'
 
 export const useDashboardStore = defineStore('dashboard', () => {
   const data = ref(null)
@@ -15,7 +16,7 @@ export const useDashboardStore = defineStore('dashboard', () => {
       const response = await api.get('/dashboard')
       data.value = response.data
     } catch (err) {
-      error.value = err.response?.data?.message || 'Не удалось загрузить статистику'
+      error.value = apiErrorMessage(err, 'Не удалось загрузить статистику')
     } finally {
       loading.value = false
     }

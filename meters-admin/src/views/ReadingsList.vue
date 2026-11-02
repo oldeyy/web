@@ -33,8 +33,11 @@ onMounted(() => {
   store.fetchAll()
 })
 
+// Ошибки операций показываются через store.actionError, поэтому здесь их достаточно перехватить
+const ignore = () => {}
+
 function approve(reading) {
-  store.setStatus(reading.id, 'approved')
+  store.setStatus(reading.id, 'approved').catch(ignore)
 }
 
 function openReject(reading) {
@@ -43,15 +46,19 @@ function openReject(reading) {
 }
 
 async function confirmReject() {
-  await store.setStatus(rejecting.value.id, 'rejected', rejectComment.value)
-  rejecting.value = null
+  try {
+    await store.setStatus(rejecting.value.id, 'rejected', rejectComment.value)
+    rejecting.value = null
+  } catch {
+    // текст ошибки выводится над таблицей
+  }
 }
 
 function remove(reading) {
   if (
     confirm(`Удалить показание счётчика № ${reading.meterNumber} от ${formatDate(reading.date)}?`)
   ) {
-    store.remove(reading.id)
+    store.remove(reading.id).catch(ignore)
   }
 }
 </script>
@@ -66,6 +73,9 @@ function remove(reading) {
       <RouterLink to="/readings/create" class="btn btn--primary">+ Добавить показание</RouterLink>
     </div>
 
+    <div v-if="store.actionError" class="alert alert--error action-error">
+      {{ store.actionError }}
+    </div>
     <div class="card">
       <div class="filters">
         <input v-model="search" class="input" type="search" placeholder="Абонент или № счётчика" />

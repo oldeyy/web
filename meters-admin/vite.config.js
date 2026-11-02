@@ -25,12 +25,11 @@ export default defineConfig(({ mode }) => {
       // иначе в браузере по старому адресу останется чужое приложение
       strictPort: true,
       proxy: {
-        // Все запросы вида /api/* перенаправляются на бэкенд публичной части сайта:
-        // /api/readings -> http://meters.local/readings
+        // Запросы /api/* перенаправляются на сервер сайта, где API расположено в каталоге /api:
+        // http://localhost:5173/api/readings -> http://localhost:8080/api/readings
         '/api': {
-          target: env.VITE_PROXY_TARGET || 'http://meters.local',
+          target: env.VITE_PROXY_TARGET || 'http://localhost:8080',
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
         },
       },
     },

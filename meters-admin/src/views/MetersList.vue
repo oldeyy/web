@@ -31,6 +31,7 @@ onMounted(() => {
 })
 
 function openForm(meter = null) {
+  store.actionError = null
   editing.value = meter
     ? { ...meter }
     : {
@@ -46,13 +47,17 @@ function openForm(meter = null) {
 async function save() {
   const { id, number, resource, userId, installedAt, verifiedUntil, status } = editing.value
   const payload = { number, resource, userId: Number(userId), installedAt, verifiedUntil, status }
-  if (id) await store.update(id, payload)
-  else await store.create(payload)
-  editing.value = null
+  try {
+    if (id) await store.update(id, payload)
+    else await store.create(payload)
+    editing.value = null
+  } catch {
+    // ошибка (например, дубликат номера) показывается в модальном окне
+  }
 }
 
 function remove(meter) {
-  if (confirm(`Удалить счётчик № ${meter.number}?`)) store.remove(meter.id)
+  if (confirm(`Удалить счётчик № ${meter.number}?`)) store.remove(meter.id).catch(() => {})
 }
 </script>
 
@@ -66,6 +71,9 @@ function remove(meter) {
       <button class="btn btn--primary" @click="openForm()">+ Добавить счётчик</button>
     </div>
 
+    <div v-if="store.actionError && !editing" class="alert alert--error action-error">
+      {{ store.actionError }}
+    </div>
     <div class="card">
       <div class="filters">
         <input v-model="search" class="input" type="search" placeholder="№ счётчика или абонент" />
@@ -127,6 +135,9 @@ function remove(meter) {
       @close="editing = null"
     >
       <form @submit.prevent="save">
+        <div v-if="store.actionError" class="alert alert--error action-error">
+          {{ store.actionError }}
+        </div>
         <div class="form-grid">
           <div class="field">
             <label for="m-number">Заводской номер</label>

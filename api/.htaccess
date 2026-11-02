@@ -1,0 +1,17 @@
+# Все запросы к /api/* направляются в единую точку входа (FrontController)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Apache в режиме CGI/FastCGI по умолчанию не передаёт заголовок Authorization в PHP
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+# Служебные каталоги и конфигурация недоступны напрямую из браузера
+<FilesMatch "^(config(\.local)?\.php|dev-router\.php)$">
+    Require all denied
+</FilesMatch>
+RedirectMatch 403 ^/api/(core|models|controllers)/
