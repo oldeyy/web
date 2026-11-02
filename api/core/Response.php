@@ -17,6 +17,7 @@ class Response
 
     public static function noContent(): never
     {
+        ini_set('default_mimetype', ''); // у ответа без тела не должно быть Content-Type
         http_response_code(204);
         exit;
     }
