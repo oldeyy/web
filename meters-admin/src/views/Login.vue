@@ -10,6 +10,7 @@ const authStore = useAuthStore()
 const phone = ref('')
 const password = ref('')
 const publicUrl = import.meta.env.VITE_PUBLIC_URL || '/'
+const demo = import.meta.env.VITE_USE_MOCKS === 'true'
 
 async function submit() {
   if (await authStore.login(phone.value, password.value)) {
@@ -41,7 +42,9 @@ async function submit() {
       <div class="field">
         <label for="password">Пароль</label>
         <input id="password" v-model="password" class="input" type="password" required />
-        <span class="field__hint">Демо-режим: любой телефон и пароль от 4 символов</span>
+        <span v-if="demo" class="field__hint"
+          >Демо-режим: любой телефон и пароль от 4 символов</span
+        >
       </div>
 
       <button type="submit" class="btn btn--primary" :disabled="authStore.loading">

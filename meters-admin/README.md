@@ -27,16 +27,25 @@ npm run build      # production-сборка в dist/
 npm run format     # форматирование Prettier
 ```
 
-Демо-вход: любой номер телефона и пароль длиной от 4 символов.
+Перед запуском поднимите REST API (каталог `api/` в корне сайта, см. [api/README.md](../api/README.md)):
+`php -S localhost:8080 api/dev-router.php`. Вход: администратор `+7 900 000-00-01` / `admin12345`,
+оператор `+7 916 100-20-30` / `operator123`. Без бэкенда можно работать на демо-данных: `VITE_USE_MOCKS=true`
+(тогда подходит любой телефон и пароль от 4 символов).
+
+> **Открывается стартовая страница Vue/Vite («Get started», «You did it!») вместо админ-панели?**
+> Значит, порт 5173 занят другим запущенным dev-сервером (например, тестовым проектом из `npm create vue`/`npm create vite`).
+> Остановите его (Ctrl+C в его терминале) и снова выполните `npm run dev` в каталоге `meters-admin`.
+> В `vite.config.js` включён `strictPort: true`, поэтому при занятом порте сервер не стартует и выводит
+> `Error: Port 5173 is already in use`, а не переезжает молча на 5174.
 
 ## Переменные окружения (`.env`)
 
 | Переменная | Значение по умолчанию | Описание |
 |---|---|---|
-| `VITE_API_URL` | `/api` | Базовый URL API для Axios |
-| `VITE_PROXY_TARGET` | `http://meters.local` | Бэкенд, на который dev-сервер проксирует `/api/*` (префикс `/api` при этом отбрасывается) |
-| `VITE_USE_MOCKS` | `true` | `true` — запросы обслуживает mock-адаптер `src/services/mockAdapter.js`; `false` — запросы уходят на реальный бэкенд |
-| `VITE_PUBLIC_URL` | `http://meters.local/` | Ссылка на публичную часть сайта |
+| `VITE_API_URL` | `http://localhost:8080/api` | Базовый URL API для Axios. Прямое обращение к API на другом origin (браузер проверяет CORS); `/api` — через прокси Vite |
+| `VITE_PROXY_TARGET` | `http://localhost:8080` | Сервер, на который dev-сервер проксирует `/api/*` (используется при `VITE_API_URL=/api`) |
+| `VITE_USE_MOCKS` | `false` | `true` — запросы обслуживает mock-адаптер `src/services/mockAdapter.js`, бэкенд не нужен |
+| `VITE_PUBLIC_URL` | `http://localhost:8080/` | Ссылка на публичную часть сайта |
 
 ## Структура
 

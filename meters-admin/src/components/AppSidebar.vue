@@ -16,8 +16,8 @@ const links = [
   { to: '/receipts', label: 'Квитанции', icon: '▤' },
 ]
 
-function logout() {
-  authStore.logout()
+async function logout() {
+  await authStore.logout()
   router.push('/login')
 }
 </script>

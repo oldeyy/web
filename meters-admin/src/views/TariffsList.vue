@@ -1,11 +1,13 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useTariffsStore } from '@/stores/tariffs'
+import { useAuthStore } from '@/stores/auth'
 import ResourceBadge from '@/components/ResourceBadge.vue'
 import BaseModal from '@/components/BaseModal.vue'
 import { RESOURCES, formatDate, formatMoney } from '@/utils/format'
 
 const store = useTariffsStore()
+const authStore = useAuthStore() // изменять тарифы может только администратор
 const editing = ref(null)
 
 onMounted(() => {
@@ -13,6 +15,7 @@ onMounted(() => {
 })
 
 function openForm(tariff = null) {
+  store.actionError = null
   editing.value = tariff
     ? { ...tariff, validTo: tariff.validTo || '' }
     : { resource: 'electricity', name: '', price: '', validFrom: '', validTo: '' }
@@ -28,13 +31,17 @@ async function save() {
     validFrom,
     validTo: validTo || null,
   }
-  if (id) await store.update(id, payload)
-  else await store.create(payload)
-  editing.value = null
+  try {
+    if (id) await store.update(id, payload)
+    else await store.create(payload)
+    editing.value = null
+  } catch {
+    // ошибка показывается в модальном окне
+  }
 }
 
 function remove(tariff) {
-  if (confirm(`Удалить тариф «${tariff.name}»?`)) store.remove(tariff.id)
+  if (confirm(`Удалить тариф «${tariff.name}»?`)) store.remove(tariff.id).catch(() => {})
 }
 </script>
 
@@ -45,7 +52,10 @@ function remove(tariff) {
         <h1>Тарифы</h1>
         <p>Стоимость единицы ресурса для расчёта сумм к оплате</p>
       </div>
-      <button class="btn btn--primary" @click="openForm()">+ Добавить тариф</button>
+      <button v-if="authStore.isAdmin" class="btn btn--primary" @click="openForm()">
+        + Добавить тариф
+      </button>
+      <span v-else class="badge badge--muted">Изменение тарифов доступно администратору</span>
     </div>
 
     <div class="card">
@@ -79,7 +89,7 @@ function remove(tariff) {
                 </span>
               </td>
               <td>
-                <div class="actions">
+                <div v-if="authStore.isAdmin" class="actions">
                   <button class="btn btn--sm btn--ghost" title="Редактировать" @click="openForm(t)">
                     ✎
                   </button>
@@ -100,6 +110,9 @@ function remove(tariff) {
       @close="editing = null"
     >
       <form @submit.prevent="save">
+        <div v-if="store.actionError" class="alert alert--error action-error">
+          {{ store.actionError }}
+        </div>
         <div class="form-grid">
           <div class="field">
             <label for="t-resource">Ресурс</label>

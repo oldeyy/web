@@ -24,7 +24,7 @@ onMounted(() => {
 })
 
 function markPaid(receipt) {
-  store.update(receipt.id, { ...receipt, status: 'paid' })
+  store.update(receipt.id, { status: 'paid' }).catch(() => {})
 }
 </script>
 
@@ -37,6 +37,9 @@ function markPaid(receipt) {
       </div>
     </div>
 
+    <div v-if="store.actionError" class="alert alert--error action-error">
+      {{ store.actionError }}
+    </div>
     <div class="card">
       <div class="filters">
         <select v-model="period" class="select" aria-label="Период">

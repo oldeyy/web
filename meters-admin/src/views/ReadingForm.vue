@@ -5,6 +5,7 @@ import { useReadingsStore } from '@/stores/readings'
 import { useMetersStore } from '@/stores/meters'
 import { useTariffsStore } from '@/stores/tariffs'
 import { RESOURCES, READING_STATUSES, formatMoney, formatNumber } from '@/utils/format'
+import { apiErrorMessage } from '@/services/errors'
 
 const props = defineProps({ id: { type: String, default: null } })
 
@@ -84,7 +85,7 @@ async function save() {
     }
     router.push('/readings')
   } catch (err) {
-    error.value = err.response?.data?.message || 'Не удалось сохранить показание'
+    error.value = apiErrorMessage(err, 'Не удалось сохранить показание')
   } finally {
     saving.value = false
   }

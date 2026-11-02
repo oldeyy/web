@@ -1,11 +1,13 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 import { useUsersStore } from '@/stores/users'
+import { useAuthStore } from '@/stores/auth'
 import StatusBadge from '@/components/StatusBadge.vue'
 import BaseModal from '@/components/BaseModal.vue'
 import { USER_ROLES, USER_STATUSES, formatDate } from '@/utils/format'
 
 const store = useUsersStore()
+const authStore = useAuthStore() // роль может менять только администратор
 
 const search = ref('')
 const role = ref('')
@@ -26,12 +28,13 @@ onMounted(() => {
   store.fetchAll()
 })
 
-function changeRole(user, newRole) {
-  store.update(user.id, { ...user, role: newRole })
+function changeRole(user, newRole, event) {
+  // При ошибке возвращаем в списке прежнее значение роли
+  store.update(user.id, { role: newRole }).catch(() => (event.target.value = user.role))
 }
 
 function toggleBlock(user) {
-  store.update(user.id, { ...user, status: user.status === 'active' ? 'blocked' : 'active' })
+  store.update(user.id, { status: user.status === 'active' ? 'blocked' : 'active' }).catch(() => {})
 }
 
 function openNotify(user = null) {
@@ -40,7 +43,11 @@ function openNotify(user = null) {
 }
 
 async function sendNotify() {
-  await store.notify(notifyTarget.value?.id ?? null, message.value)
+  try {
+    await store.notify(notifyTarget.value?.id ?? null, message.value)
+  } catch {
+    return
+  }
   notice.value = notifyTarget.value
     ? `Уведомление отправлено: ${notifyTarget.value.name}`
     : 'Рассылка отправлена всем абонентам'
@@ -60,6 +67,9 @@ async function sendNotify() {
 
     <div v-if="notice" class="alert alert--success" style="margin-bottom: 1rem">{{ notice }}</div>
 
+    <div v-if="store.actionError" class="alert alert--error action-error">
+      {{ store.actionError }}
+    </div>
     <div class="card">
       <div class="filters">
         <input
@@ -104,7 +114,8 @@ async function sendNotify() {
                   class="select select--inline"
                   :value="u.role"
                   aria-label="Роль"
-                  @change="changeRole(u, $event.target.value)"
+                  :disabled="!authStore.isAdmin || u.id === authStore.user?.id"
+                  @change="changeRole(u, $event.target.value, $event)"
                 >
                   <option v-for="(label, key) in USER_ROLES" :key="key" :value="key">
                     {{ label }}
@@ -121,7 +132,11 @@ async function sendNotify() {
                   >
                     ✉
                   </button>
-                  <button class="btn btn--sm btn--secondary" @click="toggleBlock(u)">
+                  <button
+                    class="btn btn--sm btn--secondary"
+                    :disabled="u.id === authStore.user?.id"
+                    @click="toggleBlock(u)"
+                  >
                     {{ u.status === 'active' ? 'Блок.' : 'Разблок.' }}
                   </button>
                 </div>

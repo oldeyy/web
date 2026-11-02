@@ -4,7 +4,9 @@ import { createCrudStore } from './createCrudStore'
 export const useUsersStore = createCrudStore('users', '/users', (state, api) => ({
   /** Отправляет уведомление одному абоненту (userId) или всем (userId = null). */
   async notify(userId, message) {
-    const response = await api.post('/notifications', { userId, message })
-    return response.data
+    return state.mutate(async () => {
+      const response = await api.post('/notifications', { userId, message })
+      return response.data
+    })
   },
 }))

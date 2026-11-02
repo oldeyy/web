@@ -1,6 +1,7 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import api from '@/services/api'
+import { apiErrorMessage } from '@/services/errors'
 
 export const useAuthStore = defineStore('auth', () => {
   const token = ref(localStorage.getItem('accessToken'))
@@ -22,19 +23,27 @@ export const useAuthStore = defineStore('auth', () => {
       localStorage.setItem('user', JSON.stringify(user.value))
       return true
     } catch (err) {
-      error.value = err.response?.data?.message || 'Не удалось выполнить вход'
+      error.value = apiErrorMessage(err, 'Не удалось выполнить вход')
       return false
     } finally {
       loading.value = false
     }
   }
 
-  function logout() {
+  const isAdmin = computed(() => user.value?.role === 'admin')
+
+  /** Выход: сервер заносит токен в список отозванных, клиент удаляет его из хранилища. */
+  async function logout() {
+    try {
+      if (token.value) await api.post('/auth/logout')
+    } catch {
+      // токен мог уже истечь — локальный выход выполняется в любом случае
+    }
     token.value = null
     user.value = null
     localStorage.removeItem('accessToken')
     localStorage.removeItem('user')
   }
 
-  return { token, user, loading, error, isAuthenticated, login, logout }
+  return { token, user, loading, error, isAuthenticated, isAdmin, login, logout }
 })
