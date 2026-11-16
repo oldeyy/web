@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useDashboardStore } from '@/stores/dashboard'
+import { useAuthStore } from '@/stores/auth'
 import StatCard from '@/components/StatCard.vue'
 import ActivityChart from '@/components/ActivityChart.vue'
 import ResourceBadge from '@/components/ResourceBadge.vue'
@@ -16,6 +17,7 @@ import {
 } from '@/utils/format'
 
 const store = useDashboardStore()
+const authStore = useAuthStore()
 
 onMounted(() => {
   store.fetchDashboard()
@@ -27,7 +29,9 @@ onMounted(() => {
     <div class="page-header">
       <div>
         <h1>Дашборд</h1>
-        <p>Сводка по передаче показаний за текущий месяц</p>
+        <p>
+          Здравствуйте, {{ authStore.user?.name }}! Сводка по передаче показаний за текущий месяц
+        </p>
       </div>
       <RouterLink to="/readings?status=pending" class="btn btn--primary"
         >Проверить показания</RouterLink

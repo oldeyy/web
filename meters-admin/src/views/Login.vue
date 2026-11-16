@@ -1,19 +1,46 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import { formatPhone, isPhoneComplete } from '@/utils/phone'
 
 const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
 
+// Реактивное состояние формы
 const phone = ref('')
 const password = ref('')
+const remember = ref(true)
+const showPassword = ref(false)
+const touched = ref(false) // ошибки полей показываются после первой попытки отправки
+
 const publicUrl = import.meta.env.VITE_PUBLIC_URL || '/'
 const demo = import.meta.env.VITE_USE_MOCKS === 'true'
 
+// Вычисляемые свойства пересчитываются автоматически при изменении phone и password
+const phoneError = computed(() => (isPhoneComplete(phone.value) ? '' : 'Введите номер полностью'))
+const passwordError = computed(() =>
+  password.value.length >= 4 ? '' : 'Пароль — не менее 4 символов',
+)
+const isValid = computed(() => !phoneError.value && !passwordError.value)
+
+// Пояснение, почему пользователь оказался на странице входа
+const notice = computed(() => {
+  if (authStore.expired) return 'Сессия истекла. Войдите снова.'
+  if (route.query.redirect) return 'Для доступа к странице нужно войти.'
+  return ''
+})
+
+function onPhoneInput(event) {
+  phone.value = formatPhone(event.target.value)
+}
+
 async function submit() {
-  if (await authStore.login(phone.value, password.value)) {
+  touched.value = true
+  if (!isValid.value) return
+
+  if (await authStore.login(phone.value, password.value, remember.value)) {
     router.push(route.query.redirect || '/dashboard')
   }
 }
@@ -21,31 +48,60 @@ async function submit() {
 
 <template>
   <div class="login">
-    <form class="card login__card" @submit.prevent="submit">
+    <form class="card login__card" novalidate @submit.prevent="submit">
       <img src="/logo.png" alt="" width="56" height="56" class="login__logo" />
       <h1>Вход в админ-панель</h1>
       <p class="muted">«Все счётчики» — управление показаниями</p>
 
       <div v-if="authStore.error" class="alert alert--error">{{ authStore.error }}</div>
+      <div v-else-if="notice" class="alert alert--info">{{ notice }}</div>
 
       <div class="field">
         <label for="phone">Номер телефона</label>
         <input
           id="phone"
-          v-model="phone"
-          class="input"
+          :value="phone"
+          :class="['input', { 'input--invalid': touched && phoneError }]"
           type="tel"
-          placeholder="+7 900 000-00-01"
-          required
+          inputmode="tel"
+          autocomplete="username"
+          placeholder="+7 (900) 000-00-01"
+          autofocus
+          @input="onPhoneInput"
         />
+        <span v-if="touched && phoneError" class="field__error">{{ phoneError }}</span>
       </div>
+
       <div class="field">
         <label for="password">Пароль</label>
-        <input id="password" v-model="password" class="input" type="password" required />
+        <div class="password">
+          <input
+            id="password"
+            v-model="password"
+            :class="['input', { 'input--invalid': touched && passwordError }]"
+            :type="showPassword ? 'text' : 'password'"
+            autocomplete="current-password"
+          />
+          <button
+            type="button"
+            class="password__toggle"
+            :aria-label="showPassword ? 'Скрыть пароль' : 'Показать пароль'"
+            :title="showPassword ? 'Скрыть пароль' : 'Показать пароль'"
+            @click="showPassword = !showPassword"
+          >
+            {{ showPassword ? '🙈' : '👁' }}
+          </button>
+        </div>
+        <span v-if="touched && passwordError" class="field__error">{{ passwordError }}</span>
         <span v-if="demo" class="field__hint"
           >Демо-режим: любой телефон и пароль от 4 символов</span
         >
       </div>
+
+      <label class="remember">
+        <input v-model="remember" type="checkbox" />
+        Запомнить меня на этом устройстве
+      </label>
 
       <button type="submit" class="btn btn--primary" :disabled="authStore.loading">
         {{ authStore.loading ? 'Вход…' : 'Войти' }}
@@ -86,5 +142,39 @@ async function submit() {
 
 .login__back {
   font-size: 0.9rem;
+}
+
+.input--invalid {
+  border-color: var(--error);
+}
+
+.password {
+  position: relative;
+}
+
+.password .input {
+  padding-right: 2.75rem;
+}
+
+.password__toggle {
+  position: absolute;
+  top: 50%;
+  right: 0.4rem;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0.25rem;
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--gray-700);
+  text-align: left;
+  cursor: pointer;
 }
 </style>
