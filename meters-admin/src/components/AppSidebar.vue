@@ -2,6 +2,9 @@
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 
+defineProps({ open: { type: Boolean, default: false } })
+defineEmits(['close'])
+
 const router = useRouter()
 const authStore = useAuthStore()
 
@@ -23,7 +26,7 @@ async function logout() {
 </script>
 
 <template>
-  <aside class="sidebar">
+  <aside :class="['sidebar', { 'sidebar--open': open }]">
     <div class="sidebar__inner">
       <RouterLink to="/dashboard" class="sidebar__logo">
         <img src="/logo.png" alt="" width="32" height="32" />
@@ -153,26 +156,21 @@ async function logout() {
   background: #b91c1c;
 }
 
+/* На узких экранах меню выезжает слева по кнопке в шапке */
 @media (max-width: 800px) {
   .sidebar {
-    width: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
   }
 
-  .sidebar__inner {
-    height: auto;
-    position: static;
-  }
-
-  .sidebar__nav {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  .sidebar__footer {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 1rem;
+  .sidebar--open {
+    transform: translateX(0);
+    box-shadow: var(--shadow-lg);
   }
 }
 </style>

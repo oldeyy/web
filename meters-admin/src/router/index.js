@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
 
 import Dashboard from '@/views/Dashboard.vue'
 import ReadingsList from '@/views/ReadingsList.vue'
@@ -82,8 +83,15 @@ const router = createRouter({
   ],
 })
 
-router.beforeEach((to) => {
-  const isAuthenticated = Boolean(localStorage.getItem('accessToken'))
+/**
+ * Защита маршрутов. Решение принимается по хранилищу авторизации:
+ * - при первом переходе сохранённый токен проверяется на сервере (GET /auth/me);
+ * - на защищённую страницу без действующего токена — переход на вход с возвратом (?redirect=);
+ * - авторизованного пользователя страница входа перенаправляет на дашборд.
+ */
+router.beforeEach(async (to) => {
+  const authStore = useAuthStore()
+  const isAuthenticated = await authStore.verify()
 
   if (to.meta.requiresAuth && !isAuthenticated) {
     return {
